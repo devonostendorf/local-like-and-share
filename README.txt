@@ -1,0 +1,137 @@
+=== Local Like And Share ===
+Contributors: DevonOstendorf
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQHYQSJDUW2JQ
+Tags: like, share, local, self-hosted, standalone, track like, track share
+Requires at least: 4.3
+Tested up to: 4.3
+Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Track liked and shared posts directly on your site.
+
+== Description ==
+
+Local Like And Share is a simple way to allow your readers to like and share your posts, directly on your site.
+
+Merely confirm your settings, activate the portions of the widget to match, and monitor the results - all via the common WordPress online admin menu area (no tinkering with files required :) ).
+
+= Included features: =
+
+* Configurable button settings:
+	* Select position on post where buttons get displayed
+		
+* Configurable Like settings:
+	* Display like button on post index pages?
+	* Display like button on individual post?
+	* Choose individual button and button hover colors
+	* Set "call to action" button hover message
+	* Set "successful like" button hover message
+	* Set "already liked" button hover message
+
+* Configurable Share settings:
+	* Display share button on post index pages?
+	* Display share button on individual post?
+	* Choose individual button and button hover colors
+	* Set "call to action" button hover message
+	* Share post default email subject and body
+
+* Configurable widget messages:
+	* No likes found	
+	* No shares found
+	
+* Configurable widget labels/input field placeholders:
+	* Show like section?
+	* Like title
+	* Show share section?
+	* Share title
+	* Time period
+	* Number of posts to show
+	* Show like/share counts?
+	* Adjustable numbered result margin (to account for theme indentation differences)
+	
+* Admin and editor tools:
+	* View statistics (for both likes and shares)
+		
+* Multisite capable
+
+= Benefits: =
+
+* No file server configuration required:
+	* All color selection and positioning of buttons done via the plugin's settings page
+	* All configuration of hover message contents done via the plugin's settings page
+	
+* For Multisite networks, once the plugin is installed in the network's plugin directory, individual site activation and configuration of the plugin can be handled by individual site admins without any access to the file server.
+
+== Installation ==
+
+= Download and Install =    
+1. Go to "Plugins > Add New" in your Dashboard and search for: Local Like And Share
+2. Click the "Install Now" button for the Local Like And Share plugin
+3. See the appropriate section below ("Single Site - Activate and Configure" or "Multisite - Activate and Configure") **BEFORE** activating
+
+**OR**  
+
+1. Download `local-like-and-share.[version_number].zip` from the WordPress.org plugin directory
+2. Extract `local-like-and-share.[version_number].zip` into a directory on your computer  
+3. Upload the `local-like-and-share` directory to your plugins directory (typically `../wp-content/plugins`)  
+4. See the appropriate section below ("Single Site - Activate and Configure" or "Multisite - Activate and Configure") **BEFORE** activating
+
+= Single Site - Activate and Configure =  
+1. Activate the plugin in the Plugins admin menu (Plugins >> Installed Plugins)  
+2. Configure options (Settings >> Local Like And Share)  
+3. Add and configure widget (Appearance >> Widgets)  
+
+= Multisite - Activate and Configure =  
+1. Be sure you ONLY activate it for one or more individual sites - DO NOT "network activate" it (there is not yet a way for plugin authors to disable this option which is why it is even available for this plugin)  
+2. Activate the plugin in the Plugins admin menu (Plugins >> Installed Plugins)  
+3. Configure options (Settings >> Local Like And Share)  
+4. Add and configure widget (Appearance >> Widgets)  
+
+== Frequently Asked Questions ==
+
+= Why is such a recent version of WordPress listed as the minimum version required? =
+
+I strongly believe admins need to keep their sites updated with the current WordPress core.  This is particularly important for security reasons but also because it provides admins and their users with new-and-improved functionality.  If you cannot (or will not) upgrade, this plugin will probably work fine if you're running WordPress 3.5 or higher.  But seriously, you really should upgrade!
+
+= How do I get this thing to work? =
+
+Follow the steps on the Installation page and then review the Screenshots (which show the plugin "in action" from both the administrator's and a user's perspective).  If people have more specific questions, I will update this page accordingly.
+
+= Why isn't Local Like And Share translated into my language? =
+
+It is because no one who speaks your language has translated this plugin yet.  If you'd like to do so, you'll find the current local-like-and-share.pot file in the local-like-and-share/languages directory.  [Please contact me](https://devonostendorf.com) with any translation files you create - thanks much!
+
+= Why build another like and share plugin? =
+
+This was a somewhat spontaneous project; I wanted to add an easy-to-set-up way to allow likes and shares without requiring the user to sign into some other service.  And lots of people choose not to use Facebook or Twitter.  If you do, there are plenty of other plugins available.  There are also other existing plugins that provide similar functionality but require you to maintain an account on their server(s) to access statistics.  My aim was to provide a simple, self-contained, and locally-hosted tool where your stats stay with you (in the same way that the excellent [Piwik](http://piwik.org) does for analytics).  All while being independent from and unaffected by the whims of outside organizations that may change things without your knowledge or permission.
+	 		
+== Screenshots ==
+
+1. Activating the plugin
+2. Overriding the default settings with your own custom values
+3. Adding the widget to a sidebar and overriding the defaults with your own custom values
+4. User likes a post
+5. User shares a post
+6. Widget displays likes and shares
+7. View statistics
+
+== Changelog ==
+
+= 1.0 =
+* Initial release
+
+== Upgrade Notice ==
+N/A
+
+== Thanks ==
+
+Special thanks to:
+
+* [Pippin Williamson](https://pippinsplugins.com) for his [love-it plugin tutorial](https://pippinsplugins.com/write-a-love-it-plugin-with-ajax); it was the original inspiration for this plugin a couple of years back. I'd used it as the basis for some custom plugin work but then, when I started my [blog](https://devonostendorf.com), I determined I wanted a very specific set of functionality incorporated into a single plugin, hence what you're looking at now.
+* [Tom McFarlin](https://tommcfarlin.com) for creating the [WordPress Widget Boilerplate](https://github.com/tommcfarlin/WordPress-Widget-Boilerplate) and he and [Devin Vinson](https://github.com/DevinVinson) for the [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate)
+* Jason Frame's magical [Tipsy](http://onehackoranother.com/projects/jquery/tipsy) jQuery plugin for creating tooltips 
+* [Tom's](https://profiles.wordpress.org/edge22) great [Lightweight Social Icons](https://wordpress.org/plugins/lightweight-social-icons) plugin which helped me considerably when attempting to figure out how to use icons with [Fontello](http://fontello.com)
+* [Peter Coles](http://mrcoles.com) for the superb [callout box CSS](http://mrcoles.com/blog/callout-box-css-border-triangles-cross-browser)
+* [John Blackbourn](https://profiles.wordpress.org/johnbillion) and [Frank Prendergast](https://profiles.wordpress.org/frankprendergast) for their [LinkedIn Share Button](https://wordpress.org/plugins/linkedin-share-button) plugin which helped with positioning the buttons on the page
+* All of the generous people who've asked "stupid" questions (so I didn't have to ask the same ones) about how certain things work in WordPress, and then took the time to share what they've learned!

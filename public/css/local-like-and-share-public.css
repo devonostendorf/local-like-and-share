@@ -15,7 +15,6 @@
 	position: relative; 
 	margin: 18px 0;
 	padding: 3px 10px;
-	background-color: #eef4f9;
 	/* easy rounded corners for modern browsers */
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
@@ -29,7 +28,6 @@
 	border-left: 0;
 	border-top: 5px solid transparent;
 	border-bottom: 5px solid transparent;
-	border-right: 5px solid #eef4f9;
 	padding: 0;
 	width: 0;
 	height: 0;
@@ -40,14 +38,6 @@
 	_border-bottom-color: pink;
 	_border-top-color: pink;
 	_filter: chroma(color=pink);
-}
-.border-callout {
-	border: 1px solid #c5d9e8;
-	padding: 2px 9px;
-}
-.border-callout .border-notch {
-	border-right-color: #c5d9e8;
-	left: -6px;
 }
 
 
@@ -110,8 +100,14 @@
 .icon-heart:before { content: '\e800'; } /* '' */
 .icon-share:before { content: '\e801'; } /* '' */
 
+/* 
+// tipsy, facebook style tooltips for jquery
+// version 1.0.0a
+// (c) 2008-2010 jason frame [jason@onehackoranother.com]
+// released under the MIT license
+*/
+
 .tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
-  .tipsy-inner { background-color: #000; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
 
   /* Rounded corners */
   .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
@@ -122,7 +118,6 @@
   .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #000; }
   
   /* Rules to colour arrows */
-  .tipsy-arrow-n { border-bottom-color: #000; }
   .tipsy-arrow-s { border-top-color: #000; }
   .tipsy-arrow-e { border-left-color: #000; }
   .tipsy-arrow-w { border-right-color: #000; }

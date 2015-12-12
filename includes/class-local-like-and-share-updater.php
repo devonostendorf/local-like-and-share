@@ -50,7 +50,7 @@ class Local_Like_And_Share_Updater {
 	 */
 	public function __construct( $installed_local_like_and_share_db_version ) {
 
-		$this->local_like_and_share_db_version = 1;
+		$this->local_like_and_share_db_version = 2;
 		$this->installed_local_like_and_share_db_version = $installed_local_like_and_share_db_version;
 		  
 	}
@@ -89,6 +89,11 @@ class Local_Like_And_Share_Updater {
 		$local_like_and_share_settings_arr = array(
 			'button_posn_vert' => 'bottom'
 			,'button_posn_horiz' => 'left'
+			,'btn_hover_message_background_color' => 'black'
+			,'btn_hover_message_text_color' => 'white'
+			,'count_background_color' => '#eef4f9'
+			,'count_outline_color' => '#c5d9e8'
+			,'count_text_color' => 'black'
 			,'like_show_on_post_index' => 'no'
 			,'like_show_on_single' => 'yes'
 			,'like_btn_color' => 'red'
@@ -143,9 +148,11 @@ class Local_Like_And_Share_Updater {
 			// Find index containing title so we can (potentially) add new options
 			$options_index = false;
 			foreach( $curr_widget_local_like_and_share_arr as $arr_key => $arr_item ) {
-				if ( array_key_exists( 'title', $arr_item ) ) {
-					$options_index = $arr_key;
-					break;
+				if ( is_array( $arr_item ) ) {
+					if ( array_key_exists( 'show_like_section', $arr_item ) ) {						
+						$options_index = $arr_key;
+						break;
+					}
 				}
 			}
 
@@ -222,5 +229,17 @@ class Local_Like_And_Share_Updater {
 		dbDelta( $sql );			
 			  
 	}
-		  		  		  
+	
+	/**
+	 * Apply changes to get database schema to version 2.
+	 *
+	 * @since	1.0.1
+	 * @access	private
+	 */
+	private function local_like_and_share_db_update_version_2() {
+			
+		// NOOP - only options changes were made			
+			  
+	}
+	
 }

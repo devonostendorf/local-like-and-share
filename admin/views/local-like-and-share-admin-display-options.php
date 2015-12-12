@@ -47,6 +47,46 @@
 							</p>
 						</td>
 					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="btn_hover_message_background_color"><?php _e( 'Button hover message background color:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<input type="text" size="75" name="local_like_and_share_settings[btn_hover_message_background_color]" id="btn_hover_message_background_color" value="<?php echo esc_attr( $options['btn_hover_message_background_color'] ); ?>" class="color-picker">
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="btn_hover_message_text_color"><?php _e( 'Button hover message text color:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<input type="text" size="75" name="local_like_and_share_settings[btn_hover_message_text_color]" id="btn_hover_message_text_color" value="<?php echo esc_attr( $options['btn_hover_message_text_color'] ); ?>" class="color-picker">
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="count_background_color"><?php _e( 'Count background color:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<input type="text" size="75" name="local_like_and_share_settings[count_background_color]" id="count_background_color" value="<?php echo esc_attr( $options['count_background_color'] ); ?>" class="color-picker">
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="count_outline_color"><?php _e( 'Count outline color:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<input type="text" size="75" name="local_like_and_share_settings[count_outline_color]" id="count_outline_color" value="<?php echo esc_attr( $options['count_outline_color'] ); ?>" class="color-picker">
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<label for="count_text_color"><?php _e( 'Count text color:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<input type="text" size="75" name="local_like_and_share_settings[count_text_color]" id="count_text_color" value="<?php echo esc_attr( $options['count_text_color'] ); ?>" class="color-picker">
+						</td>
+					</tr>
             	</table>
 				<h3 class="title"><?php _e( 'Like Settings', 'local-like-and-share' ); ?></h3>
 				<table class="form-table">

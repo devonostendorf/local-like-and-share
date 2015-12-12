@@ -71,10 +71,19 @@ class Local_Like_And_Share_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
+		 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/local-like-and-share-public.css', array(), $this->version, 'all' );
 
+		// Define all configurable styling here (everything else is in .css file) 
+		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
+
+		$btn_hover_message_background_color = $local_like_and_share_options_arr['btn_hover_message_background_color'];
+		$btn_hover_message_text_color = $local_like_and_share_options_arr['btn_hover_message_text_color'];
+
+		$count_background_color = $local_like_and_share_options_arr['count_background_color'];
+		$count_outline_color = $local_like_and_share_options_arr['count_outline_color'];
+		$count_text_color = $local_like_and_share_options_arr['count_text_color'];
 	
 		$like_button_color = $local_like_and_share_options_arr['like_btn_color'];
 		$like_button_hover_color = $local_like_and_share_options_arr['like_btn_hover_color'];
@@ -142,6 +151,35 @@ class Local_Like_And_Share_Public {
 			.llas-share-button-inactive a:focus,
 			.llas-share-button-inactive a:hover {
 				color: ' . $share_button_color . ';
+			}
+
+			.callout {
+				background-color: ' . $count_background_color . ';
+				color: ' . $count_text_color . ';
+			}
+			.callout .notch {
+				border-right: 5px solid ' . $count_background_color . ';		
+			}
+			.border-callout {
+				border: 1px solid ' . $count_outline_color . ';
+				padding: 2px 9px;
+			}
+			.border-callout .border-notch {
+				border-right-color: ' . $count_outline_color . ';
+				left: -6px;
+			}	
+			
+			.tipsy-inner { 
+				background-color: ' . $btn_hover_message_background_color . ';
+				color: ' . $btn_hover_message_text_color . ';
+				max-width: 200px;
+				padding: 5px 8px 4px 8px;
+				text-align: center;	
+				//font-size: 12px;
+				font-size: 13px;
+			}
+			.tipsy-arrow-n {
+				border-bottom-color: ' . $btn_hover_message_background_color . ';
 			}
 		';
 		wp_add_inline_style( $this->plugin_name, $llas_buttons_style );

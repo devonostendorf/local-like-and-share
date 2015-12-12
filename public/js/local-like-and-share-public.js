@@ -13,11 +13,15 @@
 	 			btn_id: btn_id,
 	 		}, function(data) {
 	 				  
+                // Hide old Tipsy tooltip
+                $('.tipsy:last').remove();
+                
                 // Deactivate button
                 jQuery("#id_divLikeButton_" + data.button_num).removeClass("llas-like-button-active").addClass("llas-like-button-inactive");
-
-                // Render deactivated button, tooltip message, and updated like count
+ 
+                // Render deactivated button, new tooltip message, and updated like count
  				jQuery("#id_divLikeButton_" + data.button_num).html(data.message); 	 			
+                $('a[rel="tipsy"]').tipsy({fade: true});                
  	 		});
 	 	});
 	});	 
@@ -37,7 +41,13 @@
  				location.reload();
 	 		});
 	 	});
-	});	 	
+	});	
+
+	$(function() {
+			
+		// Render Tipsy tooltips for all anchor tags with rel='tipsy'
+		$('a[rel="tipsy"]').tipsy({fade: true});		
+	}); 	
 		
 // tipsy, facebook style tooltips for jquery
 // version 1.0.0a

@@ -327,7 +327,7 @@ class Local_Like_And_Share_Public {
 		// Get Like total for specific post
 		$like_total = $wpdb->get_var( 
 			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s"
+				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND to_delete = 0"
 				,get_the_ID()
 			)		
 		);
@@ -392,7 +392,7 @@ class Local_Like_And_Share_Public {
 		// Check to see if $current_user_id has already liked this post
 		$user_already_liked = $wpdb->get_var( 
 			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND user_identifier = %s"
+				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND user_identifier = %s AND to_delete = 0"
 				,$post_id
 				,$current_user_id
 			)		
@@ -455,7 +455,7 @@ class Local_Like_And_Share_Public {
 		// Get Share total for specific post
 		$share_total = $wpdb->get_var( 
 			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_share' . " WHERE post_id = %s"
+				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_share' . " WHERE post_id = %s AND to_delete = 0"
 				,get_the_ID()
 			)		
 		);
@@ -552,7 +552,7 @@ class Local_Like_And_Share_Public {
 		// Get Like total for specific post
 		$like_total = $wpdb->get_var( 
 			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s"
+				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND to_delete = 0"
 				,$post_id
 			)		
 		);
@@ -585,6 +585,8 @@ class Local_Like_And_Share_Public {
 					'post_id' => $post_id
 					,'user_identifier' => $current_user_id
 					,'date_liked' => date( "Y-m-d H:i:s" )
+					,'to_delete' => 0
+					,'last_update_dttm' => date( "Y-m-d H:i:s" )
 				) 
 			);
 
@@ -682,6 +684,8 @@ class Local_Like_And_Share_Public {
 				'post_id' => $post_id
 				,'user_identifier' => $current_user_id
 				,'date_shared' => date( "Y-m-d H:i:s" )
+				,'to_delete' => 0
+				,'last_update_dttm' => date( "Y-m-d H:i:s" )
 			) 
 		);
 					

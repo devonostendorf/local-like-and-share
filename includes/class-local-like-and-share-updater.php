@@ -238,7 +238,31 @@ class Local_Like_And_Share_Updater {
 	 */
 	private function local_like_and_share_db_update_version_2() {
 			
-		// NOOP - only options changes were made			
+		global $wpdb;
+		
+		$charset_collate = $wpdb->get_charset_collate();
+		
+		$sql = "CREATE TABLE {$wpdb->prefix}local_like_and_share_user_like (
+			post_id bigint(20) UNSIGNED NOT NULL,
+			user_identifier varchar( 60 ) NOT NULL,
+			date_liked datetime NOT NULL,
+			to_delete BOOLEAN NOT NULL DEFAULT 0,
+			last_update_dttm TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+			PRIMARY KEY  (post_id,user_identifier),		
+			KEY (date_liked)
+		) $charset_collate;";
+		dbDelta( $sql );		
+
+		$sql = "CREATE TABLE {$wpdb->prefix}local_like_and_share_user_share (
+			post_id bigint(20) UNSIGNED NOT NULL,
+			user_identifier varchar( 60 ) NOT NULL,
+			date_shared datetime NOT NULL,
+			to_delete BOOLEAN NOT NULL DEFAULT 0,
+			last_update_dttm TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+			PRIMARY KEY  (post_id,user_identifier,date_shared),		
+			KEY (date_shared)
+		) $charset_collate;";
+		dbDelta( $sql );			
 			  
 	}
 	

@@ -98,20 +98,17 @@ class Local_Like_And_Share_Misc {
 			
 			default:
 			
-				// No WHERE clause so ALL rows should be selected
+				// No time period specified so ALL (non-flagged for deletion) rows should be selected
 				$date_range_start_date = '';
 			
 		}
 		
+		// Only select rows that are NOT flagged for deletion
+		$where_clause = 'WHERE to_delete = 0';
 		if ( ! empty( $date_range_start_date ) ) {		
-			$where_clause = "WHERE " . $date_column . " BETWEEN '" . $date_range_start_date . "' AND '" . date("Y-m-d 23:59:59") . "'";
+			$where_clause .= " AND " . $date_column . " BETWEEN '" . $date_range_start_date . "' AND '" . date("Y-m-d 23:59:59") . "'";
 		}
-		else {
-		
-			// All-time selected, no WHERE clause needed
-			$where_clause = '';
-		}
-		
+
 		if ( $row_limit ) {
 			$limit_clause = 'LIMIT ' . $row_limit;
 		}

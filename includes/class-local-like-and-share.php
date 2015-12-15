@@ -180,6 +180,19 @@ class Local_Like_And_Share {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'view_stats_enqueue' );
 		$this->loader->add_action( 'wp_ajax_llas_view_stats', $plugin_admin, 'change_stats_time_period_ajax_handler' );
 		
+		// Reset/Undo reset like and share counts (on Local Like And Share >> View Statistics page) functionality
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'reset_like_counts_enqueue' );
+		$this->loader->add_action( 'wp_ajax_llas_reset_like_counts', $plugin_admin, 'reset_like_counts_ajax_handler' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'reset_share_counts_enqueue' );
+		$this->loader->add_action( 'wp_ajax_llas_reset_share_counts', $plugin_admin, 'reset_share_counts_ajax_handler' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'undo_reset_like_counts_enqueue' );
+		$this->loader->add_action( 'wp_ajax_llas_undo_reset_like_counts', $plugin_admin, 'undo_reset_like_counts_ajax_handler' );
+
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'undo_reset_share_counts_enqueue' );
+		$this->loader->add_action( 'wp_ajax_llas_undo_reset_share_counts', $plugin_admin, 'undo_reset_share_counts_ajax_handler' );
+		
 		// Add submenu to Settings menu 
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_local_like_and_share_options_page' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_local_like_and_share_settings' );

@@ -203,16 +203,30 @@ class Local_Like_And_Share_Admin {
 	 * @since	1.0.0
 	 */	
 	public function render_view_stats_page() {
-			  	
-		$like_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'like', '24-hours' );
-		$share_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'share', '24-hours' );
+
+		global $wpdb;
+		
+		// Physically delete previously soft-deleted likes, if any exist
+		$num_likes_deleted = $wpdb->delete( 
+			$wpdb->prefix.'local_like_and_share_user_like' 
+			,array( 
+				'to_delete' => 1
+			)
+		);
+			
+		// Physically delete previously soft-deleted shares, if any exist
+		$num_shares_deleted = $wpdb->delete( 
+			$wpdb->prefix.'local_like_and_share_user_share' 
+			,array( 
+				'to_delete' => 1
+			)
+		);		
 
 		// Get View Stats innards contents	  
-		$div_all_stats_contents = '';
-    	ob_start();
-		include( plugin_dir_path( __FILE__ ) . 'partials/local-like-and-share-admin-view-stats-innards.php' );
-		$div_all_stats_contents .= ob_get_clean();
-
+		$time_period = '24-hours';
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$div_all_stats_contents = $view_stats_innards['markup'];
+		
 		// Render page	  
 		$local_like_and_share_view_stats_pg = '';
     	ob_start();
@@ -258,20 +272,340 @@ class Local_Like_And_Share_Admin {
 		// Confirm matching nonce
 		check_ajax_referer( 'llas_view_stats' );
 		
-		// Get current post ID
+		// Get current time period
 		$time_period = $_POST['time_period'];
+
+		// Get View Stats innards contents	  
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$all_stats_contents = $view_stats_innards['markup'];
+
+		// Determine whether to render reset counts buttons and, if so, whether to enable/disable each
+		$reset_like_btn_disabled = '';
+		$reset_share_btn_disabled = '';
+		if ( 'all-time' == $time_period ) {
+			if ( 0 == $view_stats_innards['like_counts_row_count'] ) {
+				$reset_like_btn_disabled = 'disabled';
+			}
+			if ( 0 == $view_stats_innards['share_counts_row_count'] ) {
+				$reset_share_btn_disabled = 'disabled';
+			}
+			$show_del_buttons  = 'display: inline-block';
+		}
+		else {
+			$del_button = '';
+			$show_del_buttons  = 'display: none';
+		}
 		
+		wp_send_json( 
+			array( 
+				'allStatsContents' => $all_stats_contents
+				,'resetLikeBtnDisabled' => ( strlen( $reset_like_btn_disabled ) ) ? 'true' : 'false'
+				,'resetShareBtnDisabled' => ( strlen( $reset_share_btn_disabled ) ) ? 'true' : 'false'
+				,'showDelButtons' => $show_del_buttons
+			) 
+		);
+
+	}
+	
+	/**
+	 * Enqueue AJAX script that fires when the "Reset all like counts" button (on Local Like And Share >> View Statistics >> page [All-time tab]) is pressed.
+	 *
+	 * @since	1.0.1
+	 * @param	string	$hook	The current page name.
+	 * @return	null	If this is not 'local-like-and-share-view-stats' page
+	 */
+	public function reset_like_counts_enqueue( $hook ) {
+
+		if ( 'local-like-and-share_page_local-like-and-share-view-stats' != $hook ) {
+			
+			return;
+		}
+		
+		$llas_reset_like_counts_nonce = wp_create_nonce( 'llas_reset_like_counts' );
+		wp_localize_script(
+			$this->plugin_name
+			,'llas_reset_like_counts_ajax_obj'
+			,array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+				,'nonce' => $llas_reset_like_counts_nonce
+			)
+		);  
+
+	}
+	
+	/**
+	 * Handle AJAX event sent when the "Reset all like counts" button (on Local Like And Share >> View Statistics >> page [All-time tab]) is pressed.
+	 *
+	 * @since	1.0.1
+	 */	
+	public function reset_like_counts_ajax_handler() {
+	
+		// Confirm matching nonce
+		check_ajax_referer( 'llas_reset_like_counts' );
+
+		global $wpdb;
+		
+		// Soft-delete all (unflagged) like rows
+		$last_update_dttm = date( "Y-m-d H:i:s" );
+		$num_likes_flagged_for_delete = $wpdb->update( 
+			$wpdb->prefix.'local_like_and_share_user_like' 
+			,array( 
+				'to_delete' => 1
+				,'last_update_dttm' => $last_update_dttm
+			)
+			,array( 
+				'to_delete' => 0
+			)    			
+		);				
+
+		// Get View Stats innards contents	  
+		$time_period = 'all-time';
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$all_stats_contents = $view_stats_innards['markup'];
+
+		// Define reset message and undo reset link
+		$action_message = '<p id="id_pUndoLikeCountsReset"><strong>' . __( 'All like counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . __( 'Undo', 'local-like-and-share' ) . '</a></p>';
+
+		wp_send_json( 
+			array(
+				'actionMessage' => $action_message
+				,'allStatsContents' => $all_stats_contents
+			)
+		);
+	
+	}
+	
+	/**
+	 * Enqueue AJAX script that fires when the "Reset all share counts" button (on Local Like And Share >> View Statistics >> page [All-time tab]) is pressed.
+	 *
+	 * @since	1.0.1
+	 * @param	string	$hook	The current page name.
+	 * @return	null	If this is not 'local-like-and-share-view-stats' page
+	 */
+	public function reset_share_counts_enqueue( $hook ) {
+
+		if ( 'local-like-and-share_page_local-like-and-share-view-stats' != $hook ) {
+			
+			return;
+		}
+		
+		$llas_reset_share_counts_nonce = wp_create_nonce( 'llas_reset_share_counts' );
+		wp_localize_script(
+			$this->plugin_name
+			,'llas_reset_share_counts_ajax_obj'
+			,array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+				,'nonce' => $llas_reset_share_counts_nonce
+			)
+		);  
+
+	}
+	
+	/**
+	 * Handle AJAX event sent when the "Reset all share counts" button (on Local Like And Share >> View Statistics >> page [All-time tab]) is pressed.
+	 *
+	 * @since	1.0.1
+	 */	
+	public function reset_share_counts_ajax_handler() {
+	
+		// Confirm matching nonce
+		check_ajax_referer( 'llas_reset_share_counts' );
+				
+		global $wpdb;
+		
+		// Soft-delete all (unflagged) share rows
+		$last_update_dttm = date( "Y-m-d H:i:s" );
+		$num_shares_flagged_for_delete = $wpdb->update( 
+			$wpdb->prefix.'local_like_and_share_user_share' 
+			,array( 
+				'to_delete' => 1
+				,'last_update_dttm' => $last_update_dttm
+			)
+			,array( 
+				'to_delete' => 0
+			)    			
+		);				
+
+		// Get View Stats innards contents	  
+		$time_period = 'all-time';
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$all_stats_contents = $view_stats_innards['markup'];
+
+		// Define reset message and undo reset link
+		$action_message = '<p id="id_pUndoShareCountsReset"><strong>' . __( 'All share counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . __( 'Undo', 'local-like-and-share' ) . '</a></p>';
+
+		wp_send_json(
+			array(
+				'actionMessage' => $action_message
+				,'allStatsContents' => $all_stats_contents
+			)
+		);
+
+	}	
+	
+	/**
+	 * Enqueue AJAX script that fires when the "Undo" link (on Local Like And Share >> View Statistics >> page [All-time tab] after all like counts have been reset) is clicked.
+	 *
+	 * @since	1.0.1
+	 * @param	string	$hook	The current page name.
+	 * @return	null	If this is not 'local-like-and-share-view-stats' page
+	 */
+	public function undo_reset_like_counts_enqueue( $hook ) {
+
+		if ( 'local-like-and-share_page_local-like-and-share-view-stats' != $hook ) {
+			
+			return;
+		}
+		
+		$llas_undo_reset_like_counts_nonce = wp_create_nonce( 'llas_undo_reset_like_counts' );
+		wp_localize_script(
+			$this->plugin_name
+			,'llas_undo_reset_like_counts_ajax_obj'
+			,array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+				,'nonce' => $llas_undo_reset_like_counts_nonce
+			)
+		);  
+
+	}
+	
+	/**
+	 * Handle AJAX event sent when the "Undo" link (on Local Like And Share >> View Statistics >> page [All-time tab] after all like counts have been reset) is clicked.
+	 *
+	 * @since	1.0.1
+	 */
+	public function undo_reset_like_counts_ajax_handler() {
+	
+		// Confirm matching nonce
+		check_ajax_referer( 'llas_undo_reset_like_counts' );
+
+		global $wpdb;
+			
+		$undo_last_update_dttm = $_POST['last_update_dttm'];
+			
+		// Un(soft-)delete all (flagged) like rows
+		$num_likes_flagged_for_delete = $wpdb->update( 
+			$wpdb->prefix.'local_like_and_share_user_like' 
+			,array( 
+				'to_delete' => 0
+				,'last_update_dttm' => date( "Y-m-d H:i:s" )				
+			)
+			,array( 
+				'to_delete' => 1
+				,'last_update_dttm' => $undo_last_update_dttm
+			)    			
+		);				
+			
+		// Get View Stats innards contents	  
+		$time_period = 'all-time';
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$all_stats_contents = $view_stats_innards['markup'];
+
+		// Define reset undone message
+		$action_message = '<p><strong>' . __( 'Like count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
+
+		wp_send_json(
+			array(
+				'actionMessage' => $action_message
+				,'allStatsContents' => $all_stats_contents
+			)
+		);
+			
+	}
+
+	/**
+	 * Enqueue AJAX script that fires when the "Undo" link (on Local Like And Share >> View Statistics >> page [All-time tab] after all share counts have been reset) is clicked.
+	 *
+	 * @since	1.0.1
+	 * @param	string	$hook	The current page name.
+	 * @return	null	If this is not 'local-like-and-share-view-stats' page
+	 */
+	public function undo_reset_share_counts_enqueue( $hook ) {
+
+		if ( 'local-like-and-share_page_local-like-and-share-view-stats' != $hook ) {
+			
+			return;
+		}
+		
+		$llas_undo_reset_share_counts_nonce = wp_create_nonce( 'llas_undo_reset_share_counts' );
+		wp_localize_script(
+			$this->plugin_name
+			,'llas_undo_reset_share_counts_ajax_obj'
+			,array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+				,'nonce' => $llas_undo_reset_share_counts_nonce
+			)
+		);  
+
+	}
+	
+	/**
+	 * Handle AJAX event sent when the "Undo" link (on Local Like And Share >> View Statistics >> page [All-time tab] after all share counts have been reset) is clicked.
+	 *
+	 * @since	1.0.1
+	 */
+	public function undo_reset_share_counts_ajax_handler() {
+	
+		// Confirm matching nonce
+		check_ajax_referer( 'llas_undo_reset_share_counts' );
+
+		global $wpdb;
+			
+		$undo_last_update_dttm = $_POST['last_update_dttm'];
+			
+		$num_shares_flagged_for_delete = $wpdb->update( 
+			$wpdb->prefix.'local_like_and_share_user_share' 
+			,array( 
+				'to_delete' => 0
+				,'last_update_dttm' => date( "Y-m-d H:i:s" )				
+			)
+			,array( 
+				'to_delete' => 1
+				,'last_update_dttm' => $undo_last_update_dttm
+			)    			
+		);				
+			
+		// Get View Stats innards contents	  
+		$time_period = 'all-time';
+		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
+		$all_stats_contents = $view_stats_innards['markup'];
+
+		// Define reset undone message
+		$action_message = '<p><strong>' . __( 'Share count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
+		
+		wp_send_json(
+			array(
+				'actionMessage' => $action_message
+				,'allStatsContents' => $all_stats_contents
+			)
+		);
+			
+	}
+	
+	/**
+	 * Retrieve like and share counts for selected time period and generate markup to render data for display on View Statistics page
+	 *
+	 * @since	1.0.1
+	 * @param	string	$time_period	The date range to limit data retrieval to.
+	 * @return	array	The selected like and share counts and the markup to render this data.
+	 */	
+	public function populate_view_stats_innards( $time_period ) {
+	
 		$like_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'like', $time_period );
 		$share_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'share', $time_period );
 		
-		// Get View Stats innards contents	  
-		$div_string = '';
-    	ob_start();
+		// Generate View Stats innards markup	  
+		$markup = '';
+	 	ob_start();
 		include( plugin_dir_path( __FILE__ ) . 'partials/local-like-and-share-admin-view-stats-innards.php' );
-		$div_string .= ob_get_clean();
+		$markup .= ob_get_clean();
 		
-		wp_send_json( array( 'div_message' => $div_string ) );
-
+		return array( 
+			'markup' => $markup
+			, 'like_counts_row_count' => count( $like_counts_arr ) 
+			, 'share_counts_row_count' => count( $share_counts_arr ) 
+		);
+		
 	}
-			
+					
 }

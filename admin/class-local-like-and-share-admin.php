@@ -364,7 +364,7 @@ class Local_Like_And_Share_Admin {
 		$all_stats_contents = $view_stats_innards['markup'];
 
 		// Define reset message and undo reset link
-		$action_message = '<p id="id_pUndoLikeCountsReset"><strong>' . __( 'All like counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . __( 'Undo', 'local-like-and-share' ) . '</a></p>';
+		$action_message = '<p id="id_pUndoLikeCountsReset"><strong>' . esc_html__( 'All like counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . esc_html__( 'Undo', 'local-like-and-share' ) . '</a></p>';
 
 		wp_send_json( 
 			array(
@@ -432,7 +432,7 @@ class Local_Like_And_Share_Admin {
 		$all_stats_contents = $view_stats_innards['markup'];
 
 		// Define reset message and undo reset link
-		$action_message = '<p id="id_pUndoShareCountsReset"><strong>' . __( 'All share counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . __( 'Undo', 'local-like-and-share' ) . '</a></p>';
+		$action_message = '<p id="id_pUndoShareCountsReset"><strong>' . esc_html__( 'All share counts have been reset.', 'local-like-and-share' ) . '</strong><a href="#" rel="' . $last_update_dttm . '">&nbsp;' . esc_html__( 'Undo', 'local-like-and-share' ) . '</a></p>';
 
 		wp_send_json(
 			array(
@@ -502,7 +502,7 @@ class Local_Like_And_Share_Admin {
 		$all_stats_contents = $view_stats_innards['markup'];
 
 		// Define reset undone message
-		$action_message = '<p><strong>' . __( 'Like count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
+		$action_message = '<p><strong>' . esc_html__( 'Like count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
 
 		wp_send_json(
 			array(
@@ -571,7 +571,7 @@ class Local_Like_And_Share_Admin {
 		$all_stats_contents = $view_stats_innards['markup'];
 
 		// Define reset undone message
-		$action_message = '<p><strong>' . __( 'Share count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
+		$action_message = '<p><strong>' . esc_html__( 'Share count reset has been undone.', 'local-like-and-share' ) . '</strong></p>';
 		
 		wp_send_json(
 			array(

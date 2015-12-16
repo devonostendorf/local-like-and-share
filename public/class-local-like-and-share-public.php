@@ -113,10 +113,10 @@ class Local_Like_And_Share_Public {
 			.llas-like-button-active a,
 			.llas-like-button-active a:visited,
 			.llas-like-button-active a:focus {
-				color: ' . $like_button_color . ';
+				color: ' . esc_html( $like_button_color ) . ';
 			}
 			.llas-like-button-active a:hover {
-				color: ' . $like_button_hover_color . ';
+				color: ' . esc_html( $like_button_hover_color ) . ';
 			}
 			.llas-like-button-inactive {
 				' . $button_posn . ';			
@@ -125,7 +125,7 @@ class Local_Like_And_Share_Public {
 			.llas-like-button-inactive a:visited,
 			.llas-like-button-inactive a:focus,
 			.llas-like-button-inactive a:hover {
-				color: ' . $like_button_color . ';
+				color: ' . esc_html( $like_button_color ) . ';
 			}
 
 			.llas-share-button-active {
@@ -138,48 +138,38 @@ class Local_Like_And_Share_Public {
 			.llas-share-button-active a,
 			.llas-share-button-active a:visited,
 			.llas-share-button-active a:focus {
-				color: ' . $share_button_color . ';
+				color: ' . esc_html( $share_button_color ) . ';
 			}
 			.llas-share-button-active a:hover {
-				color: ' . $share_button_hover_color . ';
-			}
-			.llas-share-button-inactive {
-				' . $button_posn . ';			
-			}
-			.llas-share-button-inactive a,
-			.llas-share-button-inactive a:visited,
-			.llas-share-button-inactive a:focus,
-			.llas-share-button-inactive a:hover {
-				color: ' . $share_button_color . ';
+				color: ' . esc_html( $share_button_hover_color ) . ';
 			}
 
 			.callout {
-				background-color: ' . $count_background_color . ';
-				color: ' . $count_text_color . ';
+				background-color: ' . esc_html( $count_background_color ) . ';
+				color: ' . esc_html( $count_text_color ) . ';
 			}
 			.callout .notch {
-				border-right: 5px solid ' . $count_background_color . ';		
+				border-right: 5px solid ' . esc_html( $count_background_color ). ';		
 			}
 			.border-callout {
-				border: 1px solid ' . $count_outline_color . ';
+				border: 1px solid ' . esc_html( $count_outline_color ) . ';
 				padding: 2px 9px;
 			}
 			.border-callout .border-notch {
-				border-right-color: ' . $count_outline_color . ';
+				border-right-color: ' . esc_html( $count_outline_color ) . ';
 				left: -6px;
 			}	
 			
 			.tipsy-inner { 
-				background-color: ' . $btn_hover_message_background_color . ';
-				color: ' . $btn_hover_message_text_color . ';
+				background-color: ' . esc_html( $btn_hover_message_background_color ) . ';
+				color: ' . esc_html( $btn_hover_message_text_color ) . ';
 				max-width: 200px;
 				padding: 5px 8px 4px 8px;
 				text-align: center;	
-				//font-size: 12px;
 				font-size: 13px;
 			}
 			.tipsy-arrow-n {
-				border-bottom-color: ' . $btn_hover_message_background_color . ';
+				border-bottom-color: ' . esc_html( $btn_hover_message_background_color ) . ';
 			}
 		';
 		wp_add_inline_style( $this->plugin_name, $llas_buttons_style );
@@ -346,7 +336,7 @@ class Local_Like_And_Share_Public {
 		if ( $user_already_liked ) {
 					  
 			// Current user/visitor HAS already liked this post - display inactive button (with tooltip message) and current like count
-			$button_link = '<a id="id_dummy" rel="tipsy" title="' . $local_like_and_share_options_arr['like_btn_hover_info_message_already_liked'] . '">';
+			$button_link = '<a id="id_dummy" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_info_message_already_liked'] ) . '">';
 
 			$like_button = '<div class="llas-like-button-inactive">' 
 				. $button_link
@@ -360,7 +350,7 @@ class Local_Like_And_Share_Public {
 		else {
 
 			// Current user/visitor has NOT yet liked this post
-			$button_link = '<a class="like_button" id="id_lnkLikeButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . $local_like_and_share_options_arr['like_btn_hover_call_to_action'] . '">';
+			$button_link = '<a class="like_button" id="id_lnkLikeButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_call_to_action'] ) . '">';
 
 			$like_button = '<div class="llas-like-button-active" id="id_divLikeButton_' . get_the_ID() . '">' 
 				. $button_link
@@ -492,10 +482,10 @@ class Local_Like_And_Share_Public {
      	$share_email_body = str_replace( '<br>', '%0A', $share_email_body );
   			  		
 		$button_link = '<a class="share_button" href="mailto:'
-			. '?subject='  . $share_email_subject
-			. '&body=' . $share_email_body
+			. '?subject='  . esc_attr( $share_email_subject )
+			. '&body=' . esc_attr( $share_email_body )
 			. '" '
-			. 'id="id_lnkShareButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . $local_like_and_share_options_arr['share_btn_hover_call_to_action'] . '">';
+			. 'id="id_lnkShareButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['share_btn_hover_call_to_action'] ) . '">';
 
 		$share_button = '<div class="llas-share-button-active" id="id_divShareButton_' . get_the_ID() . '">'
 			. $button_link
@@ -591,7 +581,7 @@ class Local_Like_And_Share_Public {
 			);
 
    			if ( $llas_user_row_inserted ) {
-				$button_link = '<a id="id_dummy" rel="tipsy" title="' . $local_like_and_share_options_arr['like_btn_hover_success_message'] . '">';				
+				$button_link = '<a id="id_dummy" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_success_message'] ) . '">';				
 
 				$like_button_html =
 					$button_link
@@ -623,7 +613,7 @@ class Local_Like_And_Share_Public {
 				. '</span>'
 			;
 			
-			$button_link = '<a id="id_dummy" rel="tipsy" title="' . $local_like_and_share_options_arr['like_btn_hover_info_message_already_liked'] . '">';
+			$button_link = '<a id="id_dummy" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_info_message_already_liked'] ) . '">';
 
 			$like_button_html =
 				$button_link

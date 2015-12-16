@@ -21,7 +21,7 @@
  
                 // Render deactivated button, new tooltip message, and updated like count
  				jQuery("#id_divLikeButton_" + data.button_num).html(data.message); 	 			
-                $('a[rel="tipsy"]').tipsy({fade: true});                
+                $('a[rel="tipsy"]').tipsy({fade: true, opacity: 1});
  	 		});
 	 	});
 	});	 
@@ -46,7 +46,8 @@
 	$(function() {
 			
 		// Render Tipsy tooltips for all anchor tags with rel='tipsy'
-		$('a[rel="tipsy"]').tipsy({fade: true});		
+		$('a[rel="tipsy"]').tipsy({fade: true, opacity: 1});
+		
 	}); 	
 		
 // tipsy, facebook style tooltips for jquery

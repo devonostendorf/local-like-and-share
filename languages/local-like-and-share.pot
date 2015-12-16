@@ -2,9 +2,10 @@
 # This file is distributed under the same license as the Local Like And Share package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Local Like And Share 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/like-and-share\n"
-"POT-Creation-Date: 2015-09-14 02:36:00+00:00\n"
+"Project-Id-Version: Local Like And Share 1.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/local-like-and-"
+"share\n"
+"POT-Creation-Date: 2015-12-16 04:49:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,6 +20,27 @@ msgstr ""
 #: admin/class-local-like-and-share-admin.php:191
 #: admin/class-local-like-and-share-admin.php:192
 msgid "View Statistics"
+msgstr ""
+
+#: admin/class-local-like-and-share-admin.php:367
+msgid "All like counts have been reset."
+msgstr ""
+
+#: admin/class-local-like-and-share-admin.php:367
+#: admin/class-local-like-and-share-admin.php:435
+msgid "Undo"
+msgstr ""
+
+#: admin/class-local-like-and-share-admin.php:435
+msgid "All share counts have been reset."
+msgstr ""
+
+#: admin/class-local-like-and-share-admin.php:505
+msgid "Like count reset has been undone."
+msgstr ""
+
+#: admin/class-local-like-and-share-admin.php:574
+msgid "Share count reset has been undone."
 msgstr ""
 
 #: admin/partials/local-like-and-share-admin-view-stats-innards.php:15
@@ -75,110 +97,138 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:51
-msgid "Like Settings"
-msgstr ""
-
-#: admin/views/local-like-and-share-admin-display-options.php:55
-#: admin/views/local-like-and-share-admin-display-options.php:142
-msgid "Show on post index pages:"
+#: admin/views/local-like-and-share-admin-display-options.php:52
+msgid "Button hover message background color:"
 msgstr ""
 
 #: admin/views/local-like-and-share-admin-display-options.php:60
+msgid "Button hover message text color:"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:68
+msgid "Count background color:"
+msgstr ""
+
 #: admin/views/local-like-and-share-admin-display-options.php:76
-#: admin/views/local-like-and-share-admin-display-options.php:147
-#: admin/views/local-like-and-share-admin-display-options.php:163
-msgid "Yes"
+msgid "Count outline color:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:65
-#: admin/views/local-like-and-share-admin-display-options.php:81
-#: admin/views/local-like-and-share-admin-display-options.php:152
-#: admin/views/local-like-and-share-admin-display-options.php:168
-msgid "No"
+#: admin/views/local-like-and-share-admin-display-options.php:84
+msgid "Count text color:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:71
-msgid "Show on individual post:"
-msgstr ""
-
-#: admin/views/local-like-and-share-admin-display-options.php:87
-#: admin/views/local-like-and-share-admin-display-options.php:174
-msgid "Button color:"
+#: admin/views/local-like-and-share-admin-display-options.php:91
+msgid "Like Settings"
 msgstr ""
 
 #: admin/views/local-like-and-share-admin-display-options.php:95
 #: admin/views/local-like-and-share-admin-display-options.php:182
+msgid "Show on post index pages:"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:100
+#: admin/views/local-like-and-share-admin-display-options.php:116
+#: admin/views/local-like-and-share-admin-display-options.php:187
+#: admin/views/local-like-and-share-admin-display-options.php:203
+msgid "Yes"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:105
+#: admin/views/local-like-and-share-admin-display-options.php:121
+#: admin/views/local-like-and-share-admin-display-options.php:192
+#: admin/views/local-like-and-share-admin-display-options.php:208
+msgid "No"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:111
+msgid "Show on individual post:"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:127
+#: admin/views/local-like-and-share-admin-display-options.php:214
+msgid "Button color:"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-display-options.php:135
+#: admin/views/local-like-and-share-admin-display-options.php:222
 msgid "Button hover color:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:103
-#: admin/views/local-like-and-share-admin-display-options.php:190
+#: admin/views/local-like-and-share-admin-display-options.php:143
+#: admin/views/local-like-and-share-admin-display-options.php:230
 msgid "Button hover message (call to action):"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:112
+#: admin/views/local-like-and-share-admin-display-options.php:152
 msgid "Button hover message (successful like):"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:121
+#: admin/views/local-like-and-share-admin-display-options.php:161
 msgid "Button hover message (already liked):"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:130
+#: admin/views/local-like-and-share-admin-display-options.php:170
 msgid "Widget message (no likes found):"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:138
+#: admin/views/local-like-and-share-admin-display-options.php:178
 msgid "Share Settings"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:158
+#: admin/views/local-like-and-share-admin-display-options.php:198
 msgid "Show on individual post?:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:199
+#: admin/views/local-like-and-share-admin-display-options.php:239
 msgid "Widget message (no shares found):"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:208
+#: admin/views/local-like-and-share-admin-display-options.php:248
 msgid "Share post email subject:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:216
+#: admin/views/local-like-and-share-admin-display-options.php:256
 msgid "Share post email body:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:224
+#: admin/views/local-like-and-share-admin-display-options.php:264
 msgid "Admin Menu Settings"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:228
+#: admin/views/local-like-and-share-admin-display-options.php:268
 msgid "Position in menu:"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-display-options.php:234
+#: admin/views/local-like-and-share-admin-display-options.php:274
 msgid ""
 "If you cannot see the Local Like And Share admin menu, change this to "
 "another number of the form \"3.xyz\"."
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-view-stats.php:20
+#: admin/views/local-like-and-share-admin-view-stats.php:22
+msgid "Reset all like counts"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-view-stats.php:23
+msgid "Reset all share counts"
+msgstr ""
+
+#: admin/views/local-like-and-share-admin-view-stats.php:29
 #: includes/views/admin.php:35
 msgid "Last 24 hours"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-view-stats.php:21
+#: admin/views/local-like-and-share-admin-view-stats.php:30
 #: includes/views/admin.php:38
 msgid "Last 7 days"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-view-stats.php:22
+#: admin/views/local-like-and-share-admin-view-stats.php:31
 #: includes/views/admin.php:41
 msgid "Last 30 days"
 msgstr ""
 
-#: admin/views/local-like-and-share-admin-view-stats.php:23
+#: admin/views/local-like-and-share-admin-view-stats.php:32
 #: includes/views/admin.php:44
 msgid "All-time"
 msgstr ""

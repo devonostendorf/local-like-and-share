@@ -3,8 +3,8 @@ Contributors: DevonOstendorf
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQHYQSJDUW2JQ
 Tags: like, share, local, self-hosted, standalone, track like, track share
 Requires at least: 4.3
-Tested up to: 4.3
-Stable tag: 1.0.0
+Tested up to: 4.4
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,6 +20,8 @@ Merely confirm your settings, activate the portions of the widget to match, and 
 
 * Configurable button settings:
 	* Select position on post where buttons get displayed
+	* Choose individual "call to action" button hover message background and text colors
+	* Choose individual count background, outline, and text colors
 		
 * Configurable Like settings:
 	* Display like button on post index pages?
@@ -52,6 +54,7 @@ Merely confirm your settings, activate the portions of the widget to match, and 
 	
 * Admin and editor tools:
 	* View statistics (for both likes and shares)
+	* Reset all counts (for both likes and shares)
 		
 * Multisite capable
 
@@ -105,7 +108,11 @@ It is because no one who speaks your language has translated this plugin yet.  I
 = Why build another like and share plugin? =
 
 This was a somewhat spontaneous project; I wanted to add an easy-to-set-up way to allow likes and shares without requiring the user to sign into some other service.  And lots of people choose not to use Facebook or Twitter.  If you do, there are plenty of other plugins available.  There are also other existing plugins that provide similar functionality but require you to maintain an account on their server(s) to access statistics.  My aim was to provide a simple, self-contained, and locally-hosted tool where your stats stay with you (in the same way that the excellent [Piwik](http://piwik.org) does for analytics).  All while being independent from and unaffected by the whims of outside organizations that may change things without your knowledge or permission.
-	 		
+
+= How do I reset like or share counts? =
+
+Go to the View Statistics page (Local Like And Share >> View Statistics), select the "All-time" tab, and press either the "Reset all like counts" or "Reset all share counts" button.  This will reset ALL of your likes or shares (depending on which button you press).  You will be presented with an "Undo" link immediately after having pressed a delete button.  If you pressed a delete button by accident, or change your mind about deleting your counts, you must click the undo link IMMEDIATELY; your action CANNOT be reversed later.
+
 == Screenshots ==
 
 1. Activating the plugin
@@ -118,11 +125,22 @@ This was a somewhat spontaneous project; I wanted to add an easy-to-set-up way t
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.1 =
+Release Date: December 15, 2015
+
+* NEW: Added additional configurable color settings (Settings >> Local Like And Share): "Button hover message background color", "Button hover message text color", "Count background color", "Count outline color", and "Count text color"
+* NEW: Added functionality to reset ALL like counts and/or reset ALL share counts (Local Like And Share >> View Statistics [All-time tab])
+* CHANGED: Modified dynamic HTML throughout the code, sanitizing it with "esc()" functions
+
+= 1.0.0 =
+Release Date: September 18, 2015
+
 * Initial release
 
 == Upgrade Notice ==
-N/A
+
+= 1.0.1 =
+Added functionality to reset ALL like counts and/or reset ALL share counts.  Added new configurable color settings.  Sanitized dynamic HTML via "esc()" functions.
 
 == Thanks ==
 

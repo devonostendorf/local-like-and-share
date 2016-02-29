@@ -200,6 +200,10 @@ class Local_Like_And_Share {
 		// Add Local Like And Share top level menu to the admin menu sidebar
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_local_like_and_share_admin_menu' );
 
+		// Language-specific translation check functionality
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'translation_check' );
+		$this->loader->add_action( 'wp_ajax_language_nag_dismiss', $plugin_admin, 'translation_nag_screen_ajax_handler' );
+
 	}
 
 	/**

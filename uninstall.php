@@ -39,6 +39,9 @@ if ( ! is_multisite() ) {
 		delete_option( $option_name );
 	}
 		
+	// Delete language detector
+	delete_option( 'local_like_and_share_language_detector_' . get_locale() );
+
 	// Delete custom tables
 	foreach ( $custom_table_arr as $custom_table_name)
 	{
@@ -62,6 +65,9 @@ else {
 		{
 			delete_option( $option_name );
 		}
+
+		// Delete language detector
+		delete_option( 'local_like_and_share_language_detector_' . get_locale() );
 
 		// Delete custom tables
 		foreach ( $custom_table_arr as $custom_table_name)

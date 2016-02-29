@@ -34,6 +34,27 @@ class Local_Like_And_Share_i18n {
 	 * @var		string	$domain	The domain identifier for this plugin.
 	 */
 	private $domain;
+	
+	/**
+	 * Does a translation exist for the current language?
+	 *
+	 * @since	1.0.2
+	 * @access	private
+	 * @var		string	$loaded	Whether a translation exists for the current language.
+	 */
+	private static $loaded = false;
+	
+	/**
+	 * Get boolean indicating whether a translation exists for the current language.
+	 *
+	 * @since	1.0.2
+	 * @return	boolean	Does translation exist for the current language?
+	 */
+	public function is_loaded() {
+		
+		return self::$loaded;
+		
+	}
 
 	/**
 	 * Load the plugin text domain for translation.
@@ -42,7 +63,7 @@ class Local_Like_And_Share_i18n {
 	 */
 	public function load_plugin_textdomain() {
 
-		load_plugin_textdomain(
+		self::$loaded = load_plugin_textdomain(
 			$this->domain
 			,false
 			,dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'

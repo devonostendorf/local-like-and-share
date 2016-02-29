@@ -1,11 +1,14 @@
 .llas-like-button-active .like_button {
 	border: none;	
+	box-shadow: none;
 }
 .llas-like-button-inactive #id_dummy {
 	border: none;	
+	box-shadow: none;
 }
 .llas-share-button-active .share_button {
 	border: none;	
+	box-shadow: none;
 }
 
 /* Many thanks to Peter Coles 

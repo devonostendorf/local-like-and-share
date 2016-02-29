@@ -4,7 +4,7 @@
 **Tags:** like, share, local, self-hosted, standalone, track like, track share  
 **Requires at least:** 4.3  
 **Tested up to:** 4.4  
-**Stable tag:** 1.0.1  
+**Stable tag:** 1.0.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
   
@@ -126,6 +126,12 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 
 ## Changelog ##
 
+### 1.0.2 ###
+Release Date: February 28, 2016
+
+* NEW: Added translation nag functionality based on [Clorith's example](http://www.clorith.net/blog/encourage-community-translations-wordpress-org-plugins/)
+* FIXED: Fixed issue where underlines were rendering beneath both like and share icons in some themes
+
 ### 1.0.1 ###
 Release Date: December 15, 2015
 
@@ -139,6 +145,9 @@ Release Date: September 18, 2015
 * Initial release
 
 ## Upgrade Notice ##
+
+### 1.0.2 ###
+Fixed issue with underlines underneath icons.  Added (dismissible) translation nag screen to solicit translation help from all admins whose site uses a language for which Local Like And Share does not yet have an official translation.
 
 ### 1.0.1 ###
 Added functionality to reset ALL like counts and/or reset ALL share counts.  Added new configurable color settings.  Sanitized dynamic HTML via "esc()" functions.

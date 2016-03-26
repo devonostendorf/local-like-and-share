@@ -72,7 +72,7 @@ class Local_Like_And_Share_Public {
 		 * class.
 		 */
 		 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/local-like-and-share-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/local-like-and-share-public.min.css', array(), $this->version, 'all' );
 
 		// Define all configurable styling here (everything else is in .css file) 
 		
@@ -193,7 +193,7 @@ class Local_Like_And_Share_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-public.min.js', array( 'jquery' ), $this->version, false );
 
 	}
 

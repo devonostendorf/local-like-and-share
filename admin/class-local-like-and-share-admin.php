@@ -93,7 +93,7 @@ class Local_Like_And_Share_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-admin.js', array( 'jquery', 'wp-color-picker' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-admin.min.js', array( 'jquery', 'wp-color-picker' ), $this->version, true );
 
 	}
 	

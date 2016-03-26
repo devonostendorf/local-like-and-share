@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: like, share, local, self-hosted, standalone, track like, track share
 Requires at least: 4.3
 Tested up to: 4.4
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,12 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 
 == Changelog ==
 
+= 1.0.3 =
+Release Date: March 26, 2016
+
+* FIXED: Revised translation nag functionality
+* NEW: Added minified JavaScript and CSS files
+
 = 1.0.2 =
 Release Date: February 28, 2016
 
@@ -144,6 +150,9 @@ Release Date: September 18, 2015
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Revised translation nag functionality.  Added minified JavaScript and CSS files.
 
 = 1.0.2 =
 Fixed issue with underlines underneath icons.  Added (dismissible) translation nag screen to solicit translation help from all admins whose site uses a language for which Local Like And Share does not yet have an official translation.

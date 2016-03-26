@@ -69,7 +69,7 @@ class Local_Like_And_Share {
 	public function __construct() {
 
 		$this->plugin_name = 'local-like-and-share';
-		$this->version = '1.0.2';
+		$this->version = '1.0.3';
 
 		$this->load_dependencies();
 		$this->set_locale();

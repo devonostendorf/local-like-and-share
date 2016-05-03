@@ -3,8 +3,8 @@ Contributors: DevonOstendorf
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQHYQSJDUW2JQ
 Tags: like, share, local, self-hosted, standalone, track like, track share
 Requires at least: 4.3
-Tested up to: 4.4
-Stable tag: 1.0.3
+Tested up to: 4.5
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -125,6 +125,11 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 
 == Changelog ==
 
+= 1.0.4 =
+Release Date: May 2, 2016
+
+* FIXED: Fixed issue with translation check generating errors during core update process
+
 = 1.0.3 =
 Release Date: March 26, 2016
 
@@ -150,6 +155,9 @@ Release Date: September 18, 2015
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.4 =
+Fixed issue with translation check generating errors during core update process.
 
 = 1.0.3 =
 Revised translation nag functionality.  Added minified JavaScript and CSS files.

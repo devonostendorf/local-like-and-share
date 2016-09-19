@@ -144,18 +144,18 @@ class Local_Like_And_Share_Public {
 				color: ' . esc_html( $share_button_hover_color ) . ';
 			}
 
-			.callout {
+			.llas-callout {
 				background-color: ' . esc_html( $count_background_color ) . ';
 				color: ' . esc_html( $count_text_color ) . ';
 			}
-			.callout .notch {
+			.llas-callout .llas-notch {
 				border-right: 5px solid ' . esc_html( $count_background_color ). ';		
 			}
-			.border-callout {
+			.llas-border-callout {
 				border: 1px solid ' . esc_html( $count_outline_color ) . ';
 				padding: 2px 9px;
 			}
-			.border-callout .border-notch {
+			.llas-border-callout .llas-border-notch {
 				border-right-color: ' . esc_html( $count_outline_color ) . ';
 				left: -6px;
 			}	
@@ -325,10 +325,10 @@ class Local_Like_And_Share_Public {
 		$button_icon = '<i class="icon icon-heart"></i>';
 		
 		$like_count_span = 
-			'<span id="id_spnLikeCount" class="callout border-callout">'
+			'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
 			. $like_total
-    		. '<b class="border-notch notch"></b>'
-    		. '<b class="notch"></b>'
+    		. '<b class="llas-border-notch llas-notch"></b>'
+    		. '<b class="llas-notch"></b>'
 			. '</span>'
 		;
 		
@@ -453,10 +453,10 @@ class Local_Like_And_Share_Public {
 		$button_icon = '<i class="icon icon-share"></i>';
 		
 		$share_count_span = 
-			'<span id="id_spnShareCount" class="callout border-callout">'
+			'<span id="id_spnShareCount" class="llas-callout llas-border-callout">'
 			. $share_total
-    		. '<b class="border-notch notch"></b>'
-    		. '<b class="notch"></b>'
+    		. '<b class="llas-border-notch llas-notch"></b>'
+    		. '<b class="llas-notch"></b>'
 			. '</span>'
 		;
 		
@@ -560,10 +560,10 @@ class Local_Like_And_Share_Public {
 			// Update post like count
 			$like_total += 1;
 			$like_count_span = 
-				'<span id="id_spnLikeCount" class="callout border-callout">'
+				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
 				. $like_total
-    			. '<b class="border-notch notch"></b>'
-    			. '<b class="notch"></b>'
+    			. '<b class="llas-border-notch llas-notch"></b>'
+    			. '<b class="llas-notch"></b>'
 				. '</span>'
 			;
 
@@ -606,10 +606,10 @@ class Local_Like_And_Share_Public {
 
 			// User ALREADY liked this!
 			$like_count_span = 
-				'<span id="id_spnLikeCount" class="callout border-callout">'
+				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
 				. $like_total
-    			. '<b class="border-notch notch"></b>'
-    			. '<b class="notch"></b>'
+    			. '<b class="llas-border-notch llas-notch"></b>'
+    			. '<b class="llas-notch"></b>'
 				. '</span>'
 			;
 			

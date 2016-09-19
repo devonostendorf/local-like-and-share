@@ -14,7 +14,7 @@
 /* Many thanks to Peter Coles 
 /* (http://mrcoles.com/blog/callout-box-css-border-triangles-cross-browser/) for */
 /* the following CSS: */
-.callout {
+.llas-callout {
 	position: relative; 
 	margin: 18px 0;
 	padding: 3px 10px;
@@ -23,7 +23,7 @@
 	-webkit-border-radius: 6px;
 	border-radius: 6px;
 }
-.callout .notch {
+.llas-callout .llas-notch {
 	position: absolute;
 	left: -5px;
 	top: 7px;

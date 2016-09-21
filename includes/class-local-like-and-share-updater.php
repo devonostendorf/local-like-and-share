@@ -249,7 +249,7 @@ class Local_Like_And_Share_Updater {
 			to_delete BOOLEAN NOT NULL DEFAULT 0,
 			last_update_dttm TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 			PRIMARY KEY  (post_id,user_identifier),		
-			KEY (date_liked)
+			KEY date_liked (date_liked)
 		) $charset_collate;";
 		dbDelta( $sql );		
 
@@ -260,7 +260,7 @@ class Local_Like_And_Share_Updater {
 			to_delete BOOLEAN NOT NULL DEFAULT 0,
 			last_update_dttm TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
 			PRIMARY KEY  (post_id,user_identifier,date_shared),		
-			KEY (date_shared)
+			KEY date_shared (date_shared)
 		) $charset_collate;";
 		dbDelta( $sql );			
 

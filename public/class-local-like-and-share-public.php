@@ -314,13 +314,11 @@ class Local_Like_And_Share_Public {
 		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
 
-		// Get Like total for specific post
-		$like_total = $wpdb->get_var( 
-			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND to_delete = 0"
-				,get_the_ID()
-			)		
-		);
+		// Get like total for specific post from post meta data
+		$like_total = get_post_meta( get_the_ID(), 'local_like_and_share_like_total', true );
+		if ( empty( $like_total ) ) {
+			$like_total = 0;
+		}
 		  		
 		$button_icon = '<i class="icon icon-heart"></i>';
 		
@@ -442,13 +440,11 @@ class Local_Like_And_Share_Public {
 		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
 
-		// Get Share total for specific post
-		$share_total = $wpdb->get_var( 
-			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_share' . " WHERE post_id = %s AND to_delete = 0"
-				,get_the_ID()
-			)		
-		);
+		// Get share total for specific post from post meta data
+		$share_total = get_post_meta( get_the_ID(), 'local_like_and_share_share_total', true );
+		if ( empty( $share_total ) ) {
+			$share_total = 0;
+		}
 		  		
 		$button_icon = '<i class="icon icon-share"></i>';
 		
@@ -539,13 +535,11 @@ class Local_Like_And_Share_Public {
 		// Button number starts at position 17 in $button_id (due to prefix of 'id_lnkLikeButton_')
 		$button_num = substr( $button_id, 17);
 
-		// Get Like total for specific post
-		$like_total = $wpdb->get_var( 
-			$wpdb->prepare(
-				"SELECT COUNT(user_identifier) FROM " . $wpdb->prefix.'local_like_and_share_user_like' . " WHERE post_id = %s AND to_delete = 0"
-				,$post_id
-			)		
-		);
+		// Get like total for specific post from post meta data
+		$like_total = get_post_meta( get_the_ID(), 'local_like_and_share_like_total', true );
+		if ( empty( $like_total ) ) {
+			$like_total = 0;
+		}	
 		
  		$button_icon = '<i class="icon icon-heart"></i>';
 
@@ -567,6 +561,9 @@ class Local_Like_And_Share_Public {
 				. '</span>'
 			;
 
+			// Update like count in post meta data
+			update_post_meta( $post_id, 'local_like_and_share_like_total', $like_total );
+			
 			// Insert row into user like table indicating that this user or IP has 
 			//		liked this post
 			$llas_user_row_inserted = $wpdb->insert( 
@@ -665,6 +662,16 @@ class Local_Like_And_Share_Public {
 
 		$post_id = $_POST['post_id'];
 		$current_user_id = $this->get_current_user_identifier();
+
+		// Update share count in post meta data
+		$share_total = get_post_meta( get_the_ID(), 'local_like_and_share_share_total', true );
+		if ( ! empty( $share_total ) ) {
+			$share_total += 1;
+		}
+		else {
+			$share_total = 1;
+		}
+		update_post_meta( $post_id, 'local_like_and_share_share_total', $like_total );
 		
 		// Insert row into user like table indicating that this user or IP has 
 		//		shared this post						

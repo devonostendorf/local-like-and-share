@@ -438,6 +438,9 @@ class Local_Like_And_Share_Admin {
 			)    			
 		);				
 
+		// Delete like counts from post meta data
+		delete_post_meta_by_key( 'local_like_and_share_like_total' );
+		
 		// Get View Stats innards contents	  
 		$time_period = 'all-time';
 		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
@@ -505,6 +508,9 @@ class Local_Like_And_Share_Admin {
 				'to_delete' => 0
 			)    			
 		);				
+
+		// Delete share counts from post meta data
+		delete_post_meta_by_key( 'local_like_and_share_share_total' );	
 
 		// Get View Stats innards contents	  
 		$time_period = 'all-time';
@@ -575,7 +581,10 @@ class Local_Like_And_Share_Admin {
 				,'last_update_dttm' => $undo_last_update_dttm
 			)    			
 		);				
-			
+
+		// Refresh post meta data with relevant like counts 
+		Local_Like_And_Share_Misc::refresh_likes_and_or_shares( 'likes' );
+
 		// Get View Stats innards contents	  
 		$time_period = 'all-time';
 		$view_stats_innards = $this->populate_view_stats_innards( $time_period );
@@ -645,6 +654,9 @@ class Local_Like_And_Share_Admin {
 			)    			
 		);				
 			
+		// Refresh post meta data with relevant share counts 
+		Local_Like_And_Share_Misc::refresh_likes_and_or_shares('shares');
+
 		// Get View Stats innards contents	  
 		$time_period = 'all-time';
 		$view_stats_innards = $this->populate_view_stats_innards( $time_period );

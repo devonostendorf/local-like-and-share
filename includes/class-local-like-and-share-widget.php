@@ -115,10 +115,10 @@ class Local_Like_And_Share_Widget extends WP_Widget {
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
 		$row_limit = $instance['number_of_posts_to_show'];
 		
-		$like_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'like', $instance['time_period'], $row_limit );
+		$like_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array_postmeta( 'like', $row_limit );
 		$no_likes_found_message = $local_like_and_share_options_arr['widget_info_message_no_likes_found'];
 
-		$share_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array( 'share', $instance['time_period'], $row_limit );
+		$share_counts_arr = Local_Like_And_Share_Misc::retrieve_like_or_share_count_array_postmeta( 'share', $row_limit );
 		$no_shares_found_message = $local_like_and_share_options_arr['widget_info_message_no_shares_found'];
 		
 		$numbered_result_margin = $instance['numbered_result_margin'];
@@ -164,6 +164,14 @@ class Local_Like_And_Share_Widget extends WP_Widget {
 		$instance['show_share_section'] = isset( $new_instance['show_share_section'] ) ? (bool) $new_instance['show_share_section'] : false;
 		$instance['share_title'] = strip_tags( $new_instance['share_title'] );
 		$instance['time_period'] = strip_tags( $new_instance['time_period'] );
+		
+		if ( $new_instance['time_period'] != $old_instance['time_period'] ) {
+			
+			// Time period has changed, post meta data counts need to be refreshed for selected time period
+			$posts_processed = Local_Like_And_Share_Misc::refresh_likes_and_or_shares( 'both', $new_instance['time_period']);
+			
+		}
+		
 		$instance['number_of_posts_to_show'] = strip_tags( $new_instance['number_of_posts_to_show'] );
 		$instance['show_like_share_count'] = isset( $new_instance['show_like_share_count'] ) ? (bool) $new_instance['show_like_share_count'] : false;
 		$instance['numbered_result_margin'] = strip_tags( $new_instance['numbered_result_margin'] );		

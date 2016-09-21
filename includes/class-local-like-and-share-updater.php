@@ -50,7 +50,7 @@ class Local_Like_And_Share_Updater {
 	 */
 	public function __construct( $installed_local_like_and_share_db_version ) {
 
-		$this->local_like_and_share_db_version = 2;
+		$this->local_like_and_share_db_version = 3;
 		$this->installed_local_like_and_share_db_version = $installed_local_like_and_share_db_version;
 		  
 	}
@@ -263,7 +263,23 @@ class Local_Like_And_Share_Updater {
 			KEY (date_shared)
 		) $charset_collate;";
 		dbDelta( $sql );			
-			  
+
+	}
+	
+	/**
+	 * Apply changes to get database schema to version 3.
+	 * NOTE: There is not actually a schema change here, but rather the need to
+	 *		force initial population of the post meta data used beginning in
+	 *		v1.0.5.
+	 *
+	 * @since	1.0.5
+	 * @access	private
+	 */
+	private function local_like_and_share_db_update_version_3() {
+		
+		// Populate post meta data counts for both Likes and Shares
+		Local_Like_And_Share_Misc::refresh_likes_and_or_shares('both');
+		
 	}
 	
 }

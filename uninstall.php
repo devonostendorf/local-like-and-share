@@ -28,6 +28,12 @@ $custom_table_arr = array(
 	'local_like_and_share_user_like'
 	,'local_like_and_share_user_share'
 );
+
+// Delete all post meta data that plugin has created
+$post_meta_arr = array(
+	'local_like_and_share_like_total'
+	,'local_like_and_share_share_total'
+);
  
 if ( ! is_multisite() ) {
 		
@@ -47,6 +53,12 @@ if ( ! is_multisite() ) {
 	{
 		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . $custom_table_name );			  
 	}
+	
+	// Delete post meta data
+	foreach ( $post_meta_arr as $post_meta_name ) {
+		delete_post_meta_by_key( $post_meta_name );
+	}
+	
 } 
 else {
 		  
@@ -74,6 +86,12 @@ else {
 		{
 			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . $custom_table_name );			  
 		}
+
+		// Delete post meta data
+		foreach ( $post_meta_arr as $post_meta_name ) {
+			delete_post_meta_by_key( $post_meta_name );
+		}
+
 	}
 	switch_to_blog( $root_blog_id );
 }

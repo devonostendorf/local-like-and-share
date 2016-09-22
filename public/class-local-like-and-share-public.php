@@ -319,12 +319,12 @@ class Local_Like_And_Share_Public {
 		if ( empty( $like_total ) ) {
 			$like_total = 0;
 		}
-		  		
+			
 		$button_icon = '<i class="icon icon-heart"></i>';
 		
 		$like_count_span = 
 			'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
-			. $like_total
+			. Local_Like_And_Share_Misc::format_count_display( $like_total )
     		. '<b class="llas-border-notch llas-notch"></b>'
     		. '<b class="llas-notch"></b>'
 			. '</span>'
@@ -450,7 +450,7 @@ class Local_Like_And_Share_Public {
 		
 		$share_count_span = 
 			'<span id="id_spnShareCount" class="llas-callout llas-border-callout">'
-			. $share_total
+			. Local_Like_And_Share_Misc::format_count_display( $share_total )
     		. '<b class="llas-border-notch llas-notch"></b>'
     		. '<b class="llas-notch"></b>'
 			. '</span>'
@@ -536,7 +536,7 @@ class Local_Like_And_Share_Public {
 		$button_num = substr( $button_id, 17);
 
 		// Get like total for specific post from post meta data
-		$like_total = get_post_meta( get_the_ID(), 'local_like_and_share_like_total', true );
+		$like_total = get_post_meta( $post_id, 'local_like_and_share_like_total', true );
 		if ( empty( $like_total ) ) {
 			$like_total = 0;
 		}	
@@ -555,7 +555,7 @@ class Local_Like_And_Share_Public {
 			$like_total += 1;
 			$like_count_span = 
 				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
-				. $like_total
+				. Local_Like_And_Share_Misc::format_count_display( $like_total )
     			. '<b class="llas-border-notch llas-notch"></b>'
     			. '<b class="llas-notch"></b>'
 				. '</span>'
@@ -604,7 +604,7 @@ class Local_Like_And_Share_Public {
 			// User ALREADY liked this!
 			$like_count_span = 
 				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
-				. $like_total
+				. Local_Like_And_Share_Misc::format_count_display( $like_total )
     			. '<b class="llas-border-notch llas-notch"></b>'
     			. '<b class="llas-notch"></b>'
 				. '</span>'
@@ -664,14 +664,14 @@ class Local_Like_And_Share_Public {
 		$current_user_id = $this->get_current_user_identifier();
 
 		// Update share count in post meta data
-		$share_total = get_post_meta( get_the_ID(), 'local_like_and_share_share_total', true );
+		$share_total = get_post_meta( $post_id, 'local_like_and_share_share_total', true );
 		if ( ! empty( $share_total ) ) {
 			$share_total += 1;
 		}
 		else {
 			$share_total = 1;
 		}
-		update_post_meta( $post_id, 'local_like_and_share_share_total', $like_total );
+		update_post_meta( $post_id, 'local_like_and_share_share_total', $share_total );
 		
 		// Insert row into user like table indicating that this user or IP has 
 		//		shared this post						
@@ -694,5 +694,5 @@ class Local_Like_And_Share_Public {
 		wp_die();
 		
    }
-   
+      
 }	

@@ -15,10 +15,12 @@
  * A collection of miscellaneous functions.
  *
  * Defines functions to handle:
- *		1) Refresh like and/or share counts for a specific time period
- *		2) Reload like or share counts, for a specific time period, into postmeta table
- *		3) Retrieve like or share count array from custom table
- *		4) Retrieve like or share count array from postmeta table
+ *		1) Format count value shown in like or share count bubble and (optionally) 
+ *			in corresponding widget
+ *		2) Refresh like and/or share counts for a specific time period
+ *		3) Reload like or share counts, for a specific time period, into postmeta table
+ *		4) Retrieve like or share count array from custom table
+ *		5) Retrieve like or share count array from postmeta table
  *
  * @since		1.0.0
  * @package		Local_Like_And_Share
@@ -26,7 +28,40 @@
  * @author		Devon Ostendorf <devon@devonostendorf.com>
  */
 class Local_Like_And_Share_Misc {
+	
+ 	/**
+	 * Format count value shown in like or share count bubble and (optionally) 
+	 *	in corresponding widget.
+	 *
+	 * @since	1.0.5
+	 * @param	int				$count_value	Count value to format.
+	 * @return	string	Formatted count value.
+	 */
+	public static function format_count_display( $count_value ) {
 
+		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
+				
+		if ( ( 'no' == $local_like_and_share_options_arr['abbrev_large_count_vals'] ) || ( $count_value <= 1000 ) ) {
+			return $count_value;
+		}
+   	
+		switch ( true ) {
+			
+			// At least 1 billion
+			case ( $count_value >= 1000000000 ):
+				return floor( $count_value / 1000000000 ) . 'B+';
+
+			// At least 1 million
+   	   		case ( $count_value >= 1000000 ):
+   	   			return floor( $count_value / 1000000 ) . 'M+';
+   	   			
+			// Greater than 1 thousand   	   			
+   	   		case ( $count_value > 1000 ):
+   	   			return floor( $count_value / 1000 ) . 'K+';
+   	   	}
+
+   	}
+	
  	/**
 	 * Refresh like and/or share counts for a specific time period.
 	 *
@@ -34,7 +69,7 @@ class Local_Like_And_Share_Misc {
 	 * @param	string			$type	Type(s) of data ('like' or 'share' or 'both') to retrieve.
 	 * @param	string Optional	$time_period	Time period to restrict data retrieval to (or null [none]).
 	 */
-	 public static function refresh_likes_and_or_shares( $likes_shares_or_both, $time_period = null ) {
+	public static function refresh_likes_and_or_shares( $likes_shares_or_both, $time_period = null ) {
 
 		if ( null == $time_period ) {
 			

@@ -26,7 +26,7 @@ if ( $instance['show_like_section'] ) {
 			echo '<li style="margin-left: ' . $numbered_result_margin . 'px;">'; 
 			echo '<a href="' . $like_row['post_url'] . '">' . $like_row['post_title'] . '</a>';
 			if ( $instance['show_like_share_count'] ) {
-				echo '&nbsp;&nbsp;&nbsp;(' . sprintf( _n( '1 like', '%s likes', $like_row['like_count'], 'local-like-and-share' ), number_format_i18n( $like_row['like_count'] ) ) . ')';
+				echo '&nbsp;&nbsp;&nbsp;(' . sprintf( _n( '1 like', '%s likes', $like_row['like_count'], 'local-like-and-share' ), Local_Like_And_Share_Misc::format_count_display( $like_row['like_count'] ) ) . ')';
 			}
 			echo '</li>';
 		}
@@ -55,7 +55,7 @@ if ( $instance['show_share_section'] ) {
 			echo '<li style="margin-left: ' . $numbered_result_margin . 'px;">'; 
 			echo '<a href="' . $share_row['post_url'] . '">' . $share_row['post_title'] . '</a>';
 			if ( $instance['show_like_share_count'] ) {
-				echo '&nbsp;&nbsp;&nbsp;(' . sprintf( _n( '1 share', '%s shares', $share_row['share_count'], 'local-like-and-share' ), number_format_i18n( $share_row['share_count'] ) ) . ')';
+				echo '&nbsp;&nbsp;&nbsp;(' . sprintf( _n( '1 share', '%s shares', $share_row['share_count'], 'local-like-and-share' ),  Local_Like_And_Share_Misc::format_count_display( $share_row['share_count'] ) ) . ')';
 			}
 			echo '</li>';
 		}

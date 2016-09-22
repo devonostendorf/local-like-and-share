@@ -94,6 +94,7 @@ class Local_Like_And_Share_Updater {
 			,'count_background_color' => '#eef4f9'
 			,'count_outline_color' => '#c5d9e8'
 			,'count_text_color' => 'black'
+			,'abbrev_large_count_vals' => 'no'
 			,'like_show_on_post_index' => 'no'
 			,'like_show_on_single' => 'yes'
 			,'like_btn_color' => 'red'

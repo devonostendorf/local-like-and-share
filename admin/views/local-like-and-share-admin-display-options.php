@@ -87,6 +87,26 @@
 							<input type="text" size="75" name="local_like_and_share_settings[count_text_color]" id="count_text_color" value="<?php echo esc_attr( $options['count_text_color'] ); ?>" class="color-picker">
 						</td>
 					</tr>
+					<tr valign="top">
+						<th scope="row">
+							<?php esc_html_e( 'Display abbreviations for large count values:', 'local-like-and-share' ); ?>
+						</th>
+						<td>
+							<span class="block-element">
+								<input type="radio" name="local_like_and_share_settings[abbrev_large_count_vals]" id="abbrev_large_count_vals_yes" value="yes" <?php checked( $options['abbrev_large_count_vals'], 'yes' ); ?> >
+								<label for="abbrev_large_count_vals_yes"><?php esc_html_e( 'Yes', 'local-like-and-share' ); ?></label>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+							</span>
+							<span class="block-element">
+								<input type="radio" name="local_like_and_share_settings[abbrev_large_count_vals]" id="abbrev_large_count_vals_no" value="no" <?php checked( $options['abbrev_large_count_vals'], 'no' ); ?> >
+								<label for="abbrev_large_count_vals_no"><?php esc_html_e( 'No', 'local-like-and-share' ); ?></label>
+							</span>
+            				<br />
+            				<p class="description">
+            					<?php esc_html_e( '1001 and above become "1K+", 1000000 and above become "1M+", and 1000000000 and above become "1B+".', 'local-like-and-share' ); ?>
+            				</p>
+						</td>
+					</tr>
             	</table>
 				<h3 class="title"><?php esc_html_e( 'Like Settings', 'local-like-and-share' ); ?></h3>
 				<table class="form-table">

@@ -165,9 +165,9 @@ class Local_Like_And_Share_Widget extends WP_Widget {
 		$instance['share_title'] = strip_tags( $new_instance['share_title'] );
 		$instance['time_period'] = strip_tags( $new_instance['time_period'] );
 		
-		if ( $new_instance['time_period'] != $old_instance['time_period'] ) {
+		if ( (! isset( $old_instance['time_period'] ) ) || ( $new_instance['time_period'] != $old_instance['time_period'] ) ) {
 			
-			// Time period has changed, post meta data counts need to be refreshed for selected time period
+			// Time period is undefined or has changed, so post meta data counts need to be refreshed for selected time period
 			$posts_processed = Local_Like_And_Share_Misc::refresh_likes_and_or_shares( 'both', $new_instance['time_period']);
 			
 		}

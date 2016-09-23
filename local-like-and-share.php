@@ -19,7 +19,7 @@
  * Plugin Name:			Local Like And Share
  * Plugin URI:			https://devonostendorf.com/projects/#local-like-and-share
  * Description:			Track liked and shared posts directly on your site.
- * Version:				1.0.4
+ * Version:				1.0.5
  * Author:				Devon Ostendorf <devon@devonostendorf.com>
  * Author URI:			https://devonostendorf.com/
  * License:				GPL-2.0+

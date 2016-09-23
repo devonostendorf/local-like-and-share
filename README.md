@@ -3,8 +3,8 @@
 **Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZQHYQSJDUW2JQ  
 **Tags:** like, share, local, self-hosted, standalone, track like, track share  
 **Requires at least:** 4.3  
-**Tested up to:** 4.5  
-**Stable tag:** 1.0.4  
+**Tested up to:** 4.6  
+**Stable tag:** 1.0.5  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
   
@@ -23,6 +23,7 @@ Merely confirm your settings, activate the portions of the widget to match, and 
 	* Select position on post where buttons get displayed
 	* Choose individual "call to action" button hover message background and text colors
 	* Choose individual count background, outline, and text colors
+	* Display abbreviations for large count values?
 		
 * Configurable Like settings:
 	* Display like button on post index pages?
@@ -126,6 +127,14 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 
 ## Changelog ##
 
+### 1.0.5 ###
+Release Date: September 22, 2016
+
+* FIXED: Renamed CSS classes to avoid clashes with CSS from other packages
+* CHANGED: Improved performance for public-facing counts by aggregating in post meta data
+* FIXED: Updated custom table create statements to adhere to WordPress 4.6 dbDelta() KEY format
+* NEW: Added option to display abbreviations for large count values
+
 ### 1.0.4 ###
 Release Date: May 2, 2016
 
@@ -156,6 +165,9 @@ Release Date: September 18, 2015
 * Initial release
 
 ## Upgrade Notice ##
+
+### 1.0.5 ###
+Renamed CSS classes to avoid clashes with CSS from other packages.  Improved performance for public-facing counts by aggregating in post meta data.  Updated custom table create statements to adhere to WordPress 4.6 dbDelta() KEY format.  Added option to display abbreviations for large count values.
 
 ### 1.0.4 ###
 Fixed issue with translation check generating errors during core update process.

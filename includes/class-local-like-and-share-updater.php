@@ -146,9 +146,9 @@ class Local_Like_And_Share_Updater {
 				  
 			// Widget IS defined
 			
-			// Find index containing title so we can (potentially) add new options
+			// Find index containing show_like_section so we can (potentially) add new options
 			$options_index = false;
-			foreach( $curr_widget_local_like_and_share_arr as $arr_key => $arr_item ) {
+			foreach ( $curr_widget_local_like_and_share_arr as $arr_key => $arr_item ) {
 				if ( is_array( $arr_item ) ) {
 					if ( array_key_exists( 'show_like_section', $arr_item ) ) {						
 						$options_index = $arr_key;

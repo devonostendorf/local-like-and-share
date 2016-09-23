@@ -40,8 +40,7 @@ if ( ! is_multisite() ) {
 	// NOT multisite
 					  
 	// Delete options
-	foreach ( $option_arr as $option_name)
-	{
+	foreach ( $option_arr as $option_name) {
 		delete_option( $option_name );
 	}
 		
@@ -49,8 +48,7 @@ if ( ! is_multisite() ) {
 	delete_option( 'local_like_and_share_language_detector_' . get_locale() );
 
 	// Delete custom tables
-	foreach ( $custom_table_arr as $custom_table_name)
-	{
+	foreach ( $custom_table_arr as $custom_table_name) {
 		$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . $custom_table_name );			  
 	}
 	
@@ -68,13 +66,11 @@ else {
 	$root_blog_id = get_current_blog_id();
 
 	// Iterate through sites in network
-	foreach ( $site_id_arr as $site_id ) 
-	{
+	foreach ( $site_id_arr as $site_id ) {
 		switch_to_blog( $site_id );
 	
 		// Delete options
-		foreach ( $option_arr as $option_name)
-		{
+		foreach ( $option_arr as $option_name) {
 			delete_option( $option_name );
 		}
 
@@ -82,8 +78,7 @@ else {
 		delete_option( 'local_like_and_share_language_detector_' . get_locale() );
 
 		// Delete custom tables
-		foreach ( $custom_table_arr as $custom_table_name)
-		{
+		foreach ( $custom_table_arr as $custom_table_name) {
 			$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}" . $custom_table_name );			  
 		}
 

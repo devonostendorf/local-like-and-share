@@ -4,7 +4,7 @@
 **Tags:** like, share, local, self-hosted, standalone, track like, track share  
 **Requires at least:** 4.3  
 **Tested up to:** 4.6  
-**Stable tag:** 1.0.5  
+**Stable tag:** 1.0.6  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
   
@@ -127,6 +127,11 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 
 ## Changelog ##
 
+### 1.0.6 ###
+Release Date: November 3, 2016
+
+* FIXED: Fixed postmeta table ORDER BY clause to sort like and share counts as integers
+
 ### 1.0.5 ###
 Release Date: September 22, 2016
 
@@ -165,6 +170,9 @@ Release Date: September 18, 2015
 * Initial release
 
 ## Upgrade Notice ##
+
+### 1.0.6 ###
+Fixed postmeta table ORDER BY clause to sort like and share counts as integers.
 
 ### 1.0.5 ###
 Renamed CSS classes to avoid clashes with CSS from other packages.  Improved performance for public-facing counts by aggregating in post meta data.  Updated custom table create statements to adhere to WordPress 4.6 dbDelta() KEY format.  Added option to display abbreviations for large count values.

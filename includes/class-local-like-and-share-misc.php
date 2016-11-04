@@ -219,7 +219,7 @@ class Local_Like_And_Share_Misc {
 		else {
 			$limit_clause = '';
 		}
-			
+
 		// Get Like or Share data
 		$like_or_share_counts_arr = $wpdb->get_results(
 			"
@@ -287,7 +287,7 @@ class Local_Like_And_Share_Misc {
    				,post_id 
    			FROM $table_name
    			$where_clause
-   			ORDER BY $count_column DESC
+   			ORDER BY CAST($count_column AS UNSIGNED) DESC
    				,post_id
    			$limit_clause
    			"

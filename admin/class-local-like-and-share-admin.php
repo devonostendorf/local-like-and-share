@@ -262,7 +262,7 @@ class Local_Like_And_Share_Admin {
 			,'menu_only_no_selectable_item'
 			,'local-like-and-share-menu'
 			,null
-			,''
+			,'dashicons-heart'
 			,$local_like_and_share_options_arr['admin_menu_position']
 		);
 

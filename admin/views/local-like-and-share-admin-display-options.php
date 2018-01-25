@@ -215,7 +215,7 @@
 					</tr>
 					<tr valign="top">
 						<th scope="row">
-							<?php esc_html_e( 'Show on individual post?:', 'local-like-and-share' ); ?>
+							<?php esc_html_e( 'Show on individual post:', 'local-like-and-share' ); ?>
 						</th>
 						<td>
 							<span class="block-element">

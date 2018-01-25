@@ -123,7 +123,7 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 	 
 ### How do I use the shortcodes? ###
 
-1. Go to Settings >> Local Like And Share and make sure the settings in the Common Settings, Like Settings, and Share Settings sections are populated to your liking
+1. Go to Settings >> Local Like And Share and make sure the settings in the Common Settings, Like Settings, and Share Settings sections are populated to your liking  
     **Note**: "Button(s) position on post", "Show on post index pages", and "Show on individual post" are not relevant to the shortcodes.
     
 2. Add `[llas_like]` or `[llas_share]` to a post or page

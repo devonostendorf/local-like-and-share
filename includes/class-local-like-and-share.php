@@ -220,16 +220,19 @@ class Local_Like_And_Share {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		// Register Like and Share shortcodes
+		$this->loader->add_action( 'init', $plugin_public, 'register_shortcodes' );	
+
 		// Display Like and Share buttons on posts
 		$this->loader->add_filter( 'the_content', $plugin_public, 'add_like_and_share_buttons_to_content' );
 
 		// Like button functionality
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'like_button_clicked_enqueue' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'localize_like_button_handler_script' );
 		$this->loader->add_action( 'wp_ajax_like_button_clicked', $plugin_public, 'like_button_clicked_ajax_handler' );
 		$this->loader->add_action( 'wp_ajax_nopriv_like_button_clicked', $plugin_public, 'like_button_clicked_ajax_handler' );
 
 		// Share button functionality
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'share_button_clicked_enqueue' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'localize_share_button_handler_script' );
 		$this->loader->add_action( 'wp_ajax_share_button_clicked', $plugin_public, 'share_button_clicked_ajax_handler' );
 		$this->loader->add_action( 'wp_ajax_nopriv_share_button_clicked', $plugin_public, 'share_button_clicked_ajax_handler' );
 

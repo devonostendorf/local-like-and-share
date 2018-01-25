@@ -74,6 +74,40 @@ class Local_Like_And_Share_Public {
 		 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/local-like-and-share-public.min.css', array(), $this->version, 'all' );
 
+		// Define all configurable styling 
+		$this->define_configurable_css();
+
+	}
+
+	/**
+	 * Register the JavaScript for the public-facing side of the site.
+	 *
+	 * @since	1.0.0
+	 */
+	public function enqueue_scripts() {
+
+		/**
+		 * An instance of this class should be passed to the run() function
+		 * defined in Local_Like_And_Share_Public_Loader as all of the hooks are defined
+		 * in that particular class.
+		 *
+		 * The Local_Like_And_Share_Public_Loader will then create the relationship
+		 * between the defined hooks and the functions defined in this
+		 * class.
+		 */
+
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-public.min.js', array( 'jquery' ), $this->version, false );
+
+	}
+
+	/**
+	 * Define CSS based on configured settings.
+	 *
+	 * @since	1.1.0
+	 * @access	private
+	 */	
+	private function define_configurable_css() {
+				
 		// Define all configurable styling here (everything else is in .css file) 
 		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
@@ -173,30 +207,85 @@ class Local_Like_And_Share_Public {
 			}
 		';
 		wp_add_inline_style( $this->plugin_name, $llas_buttons_style );
-
+   	   
 	}
 
+	
+	// Functions related to like and share button shortcodes
+	
 	/**
-	 * Register the JavaScript for the public-facing side of the site.
+	 * Register shortcodes to render Like and Share buttons directly in
+	 *	post/page content.
 	 *
-	 * @since	1.0.0
+	 * @since	1.1.0
 	 */
-	public function enqueue_scripts() {
+   	public function register_shortcodes() {
+   		
+   		add_shortcode( 'llas_like', array( $this, 'render_shortcode_button' ) );
+   		add_shortcode( 'llas_share', array( $this, 'render_shortcode_button' ) );
+  		
+   	}
 
-		/**
-		 * An instance of this class should be passed to the run() function
-		 * defined in Local_Like_And_Share_Public_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Local_Like_And_Share_Public_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
+   	/**
+	 * Render shortcode-generated button.
+	 *
+	 * @since	1.1.0
+	 * @param	array	$atts	An associative array of attributes, or an empty string if no attributes are given.
+	 * @param	string	$content	The enclosed content (if the shortcode is used in its enclosing form).
+	 * @param	string	$tag	The shortcode name.
+	 * @return	string	The HTML to render Like or Share button.
+	 */
+	public function render_shortcode_button( $atts, $content = null, $tag ) {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/local-like-and-share-public.min.js', array( 'jquery' ), $this->version, false );
+   		$type = substr( $tag, 5 );
+   		
+   		$clean_atts = shortcode_atts(
+   			array(
+   				'id' => '1'
+   			)
+   			,$atts
+   			,$tag
+   		);
+   		
+   		$this->override_configured_css( $type, $clean_atts );
 
-	}
+   		$button_method = "add_{$type}_button_to_content";
+   		if ( method_exists( $this, $button_method ) ) {
+   			
+   			return $this->$button_method( $clean_atts['id'] );
+   			
+   		}
+   		   		
+   	}
+   	
+	/**
+	 * Override configured CSS for specific shortcode-generated button, allowing 
+	 * 	for its display directly in post/page content.
+	 *
+	 * @since	1.1.0
+	 * @access	private
+	 * @param	string	$type	Type of shortcode ("like" or "share").
+	 * @param	array	$atts	An associative array of attributes, or an empty string if no attributes are given.
+	 */
+   	private function override_configured_css( $type, $atts ) {
 
+		global $post;
+
+		$post_id = get_the_ID();
+
+		// NOTE: This is a blank stylesheet, merely used as an attachment point for wp_add_inline_style()
+		wp_enqueue_style( $this->plugin_name . '-shortcode', plugin_dir_url( __FILE__ ) . 'css/local-like-and-share-shortcode.css', array(), $this->version, 'all' );
+   	   
+   	   $llas_buttons_style = '
+			#id_llas_spn_' . $type . '_button_' . $post_id . '_' . $atts['id'] . ' {
+				float: none;			
+			}
+		';
+		
+		wp_add_inline_style( $this->plugin_name.'-shortcode', $llas_buttons_style );
+   
+   }
+   	
 	
 	// Functions related to display of like and share buttons and (AJAX) handling of 
 	//	users pressing them!
@@ -211,7 +300,7 @@ class Local_Like_And_Share_Public {
 	public function add_like_and_share_buttons_to_content( $content ) {
 
 		global $post;
-
+		
 		// Only show buttons on published posts
 		if ( ( 'post' != $post->post_type ) || ( 'publish' != $post->post_status ) ) {
 			
@@ -257,7 +346,7 @@ class Local_Like_And_Share_Public {
 			// Position button above post
 			$content = $buttons_html . '<br />' .  $content;
 		}			
-				
+			
 		return $content;
 		
 	}
@@ -305,17 +394,20 @@ class Local_Like_And_Share_Public {
 	 *
 	 * @since	1.0.0
 	 * @access	private
+	 * @param	string	$id	Shortcode ID.
 	 * @return	string	The Like button HTML.
 	 */
-	private function add_like_button_to_content() {
+	private function add_like_button_to_content( $id = 'classic' ) {
 
 		global $post;
 		global $wpdb;
 		
+		$post_id = get_the_ID();
+		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
 
 		// Get like total for specific post from post meta data
-		$like_total = get_post_meta( get_the_ID(), 'local_like_and_share_like_total', true );
+		$like_total = get_post_meta( $post_id, 'local_like_and_share_like_total', true );
 		if ( empty( $like_total ) ) {
 			$like_total = 0;
 		}
@@ -323,39 +415,39 @@ class Local_Like_And_Share_Public {
 		$button_icon = '<i class="icon icon-heart"></i>';
 		
 		$like_count_span = 
-			'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
+			'<span id="id_llas_spn_like_count_' . $post_id . '_' . $id . '" class="llas-callout llas-border-callout">'
 			. Local_Like_And_Share_Misc::format_count_display( $like_total )
     		. '<b class="llas-border-notch llas-notch"></b>'
     		. '<b class="llas-notch"></b>'
 			. '</span>'
 		;
 		
-		$user_already_liked = $this->current_user_already_liked_post( $this->get_current_user_identifier(), get_the_ID() );
+		$user_already_liked = $this->current_user_already_liked_post( $this->get_current_user_identifier(), $post_id );
 		if ( $user_already_liked ) {
 					  
 			// Current user/visitor HAS already liked this post - display inactive button (with tooltip message) and current like count
 			$button_link = '<a id="id_dummy" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_info_message_already_liked'] ) . '">';
 
-			$like_button = '<div class="llas-like-button-inactive">' 
+			$like_button = '<span class="llas-like-button-inactive" id="id_llas_spn_like_button_' . $post_id . '_' . $id . '">'
 				. $button_link
 				. $button_icon
 				. '</a>'
 				. $like_count_span 
-				. '</div>'
+				. '</span>'
 			;
 
 		}
 		else {
 
 			// Current user/visitor has NOT yet liked this post
-			$button_link = '<a class="like_button" id="id_lnkLikeButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_call_to_action'] ) . '">';
+			$button_link = '<a class="like_button" id="id_llas_lnk_like_button_' . $post_id . '_' . $id . '" data-post-id="' . $post_id . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['like_btn_hover_call_to_action'] ) . '">';
 
-			$like_button = '<div class="llas-like-button-active" id="id_divLikeButton_' . get_the_ID() . '">' 
+			$like_button = '<span class="llas-like-button-active" id="id_llas_spn_like_button_' . $post_id . '_' . $id . '">' 
 				. $button_link
 				. $button_icon
 				. '</a>'
 				. $like_count_span 
-				. '</div>'
+				. '</span>'
 			;
 
 		}
@@ -431,17 +523,20 @@ class Local_Like_And_Share_Public {
 	 *
 	 * @since	1.0.0
 	 * @access	private
+	 * @param	string	$id	Shortcode ID.
 	 * @return	string	The Share button HTML.
 	 */
-	private function add_share_button_to_content() {
+	private function add_share_button_to_content( $id = 'classic' ) {
 		
 		global $post;
 		global $wpdb;
 		
+		$post_id = get_the_ID();
+		
 		$local_like_and_share_options_arr = get_option( 'local_like_and_share_settings' );
 
 		// Get share total for specific post from post meta data
-		$share_total = get_post_meta( get_the_ID(), 'local_like_and_share_share_total', true );
+		$share_total = get_post_meta( $post_id, 'local_like_and_share_share_total', true );
 		if ( empty( $share_total ) ) {
 			$share_total = 0;
 		}
@@ -449,7 +544,7 @@ class Local_Like_And_Share_Public {
 		$button_icon = '<i class="icon icon-share"></i>';
 		
 		$share_count_span = 
-			'<span id="id_spnShareCount" class="llas-callout llas-border-callout">'
+			'<span id="id_llas_spn_share_count" class="llas-callout llas-border-callout">'
 			. Local_Like_And_Share_Misc::format_count_display( $share_total )
     		. '<b class="llas-border-notch llas-notch"></b>'
     		. '<b class="llas-notch"></b>'
@@ -461,9 +556,9 @@ class Local_Like_And_Share_Public {
 		
    		// Replace variables in both the share post email subject and body 
    			
-   		$post_attribs = get_post( get_the_ID() ); 
+   		$post_attribs = get_post( $post_id ); 
    		$post_title = $post_attribs->post_title;
-   		$post_permalink = get_permalink( get_the_ID() );
+   		$post_permalink = get_permalink( $post_id );
 
    		$share_email_subject = $local_like_and_share_options_arr['share_eml_subj'];
    		$share_email_subject = str_replace( '@@blogname', get_bloginfo('name'), $share_email_subject );
@@ -481,27 +576,27 @@ class Local_Like_And_Share_Public {
 			. '?subject='  . esc_attr( $share_email_subject )
 			. '&body=' . esc_attr( $share_email_body )
 			. '" '
-			. 'id="id_lnkShareButton_' . get_the_ID() . '" data-post-id="' . get_the_ID() . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['share_btn_hover_call_to_action'] ) . '">';
+			. 'id="id_llas_lnk_share_button_' . $post_id . '_' . $id . '" data-post-id="' . $post_id . '" rel="tipsy" title="' . esc_attr( $local_like_and_share_options_arr['share_btn_hover_call_to_action'] ) . '">';
 
-		$share_button = '<div class="llas-share-button-active" id="id_divShareButton_' . get_the_ID() . '">'
+		$share_button = '<span class="llas-share-button-active" id="id_llas_spn_share_button_' . $post_id . '_' . $id . '">'
 			. $button_link
 			. $button_icon
 			. '</a>'
 			. $share_count_span 
-			. '</div>'
+			. '</span>'
 		;
 
 		return $share_button;
 			
 	}			
-	
+
 	/**
-	 * Enqueue AJAX script that fires when "Like" button (on post) is pressed.
+	 * Localize AJAX script that fires when "Like" button (on post/page) is pressed.
 	 *
-	 * @since	1.0.0
+	 * @since	1.1.0
 	 * @param	string	$hook	The current page name.
 	 */
-	public function like_button_clicked_enqueue( $hook ) {
+	public function localize_like_button_handler_script( $hook ) {
 	
 		$like_button_clicked_nonce = wp_create_nonce( 'like_button_clicked' );
 		wp_localize_script(
@@ -532,9 +627,6 @@ class Local_Like_And_Share_Public {
 		$post_id = $_POST['post_id'];		
 		$button_id = $_POST['btn_id'];
 		
-		// Button number starts at position 17 in $button_id (due to prefix of 'id_lnkLikeButton_')
-		$button_num = substr( $button_id, 17);
-
 		// Get like total for specific post from post meta data
 		$like_total = get_post_meta( $post_id, 'local_like_and_share_like_total', true );
 		if ( empty( $like_total ) ) {
@@ -554,7 +646,7 @@ class Local_Like_And_Share_Public {
 			// Update post like count
 			$like_total += 1;
 			$like_count_span = 
-				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
+				'<span id="id_llas_spn_like_count" class="llas-callout llas-border-callout">'
 				. Local_Like_And_Share_Misc::format_count_display( $like_total )
     			. '<b class="llas-border-notch llas-notch"></b>'
     			. '<b class="llas-notch"></b>'
@@ -597,13 +689,14 @@ class Local_Like_And_Share_Public {
 		
 				// Manually kill AJAX handler
  				wp_die();
+
 			}
 		}
 		else {
 
 			// User ALREADY liked this!
 			$like_count_span = 
-				'<span id="id_spnLikeCount" class="llas-callout llas-border-callout">'
+				'<span id="id_llas_spn_like_count" class="llas-callout llas-border-callout">'
 				. Local_Like_And_Share_Misc::format_count_display( $like_total )
     			. '<b class="llas-border-notch llas-notch"></b>'
     			. '<b class="llas-notch"></b>'
@@ -622,17 +715,17 @@ class Local_Like_And_Share_Public {
   			$like_button_clicked_msg = $like_button_html; 
 		}
 
-  		wp_send_json( array( 'button_num' => $button_num, 'message' => $like_button_clicked_msg ) );
+  		wp_send_json( array( 'post_id' => $post_id, 'message' => $like_button_clicked_msg ) );
   		  		
   	}
 
 	/**
-	 * Enqueue AJAX script that fires when "Share" button (on post) is pressed.
+	 * Localize AJAX script that fires when "Share" button (on post/page) is pressed.
 	 *
-	 * @since	1.0.0
+	 * @since	1.1.0
 	 * @param	string	$hook	The current page name.
 	 */
-	public function share_button_clicked_enqueue( $hook ) {
+	public function localize_share_button_handler_script( $hook ) {
 	
 		$share_button_clicked_nonce = wp_create_nonce( 'share_button_clicked' );
 		wp_localize_script(
@@ -693,6 +786,6 @@ class Local_Like_And_Share_Public {
 		// Share row insert failed, exit
 		wp_die();
 		
-   }
-      
+   }   
+
 }	

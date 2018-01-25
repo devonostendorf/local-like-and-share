@@ -44,6 +44,11 @@ Merely confirm your settings, activate the portions of the widget to match, and 
 	* No likes found	
 	* No shares found
 	
+* Versatile shortcode functionality:
+	* Generate like button directly in content
+	* Generate share button directly in content
+	* Usable in posts and on pages
+	
 * Configurable widget labels/input field placeholders:
 	* Show like section?
 	* Like title
@@ -105,15 +110,40 @@ Follow the steps on the Installation page and then review the Screenshots (which
 
 = Why isn't Local Like And Share translated into my language? =
 
-It is because no one who speaks your language has translated this plugin yet.  If you'd like to do so, you'll find the current local-like-and-share.pot file in the local-like-and-share/languages directory.  [Please contact me](https://devonostendorf.com) with any translation files you create - thanks much!
+It is because no one who speaks your language has translated this plugin yet.  If you'd like to do so, you'll find the current local-like-and-share.pot file in the local-like-and-share/languages directory.  [Please contact me](https://devonostendorf.com) with any translation files you create; I will help you get set up as a Project Translation Editor (PTE) with the WordPress.org [Polyglots team](https://make.wordpress.org/polyglots/) to create a language pack for Local Like And Share - thanks much!
 
 = Why build another like and share plugin? =
 
-This was a somewhat spontaneous project; I wanted to add an easy-to-set-up way to allow likes and shares without requiring the user to sign into some other service.  And lots of people choose not to use Facebook or Twitter.  If you do, there are plenty of other plugins available.  There are also other existing plugins that provide similar functionality but require you to maintain an account on their server(s) to access statistics.  My aim was to provide a simple, self-contained, and locally-hosted tool where your stats stay with you (in the same way that the excellent [Piwik](http://piwik.org) does for analytics).  All while being independent from and unaffected by the whims of outside organizations that may change things without your knowledge or permission.
+This was a somewhat spontaneous project; I wanted to add an easy-to-set-up way to allow likes and shares without requiring the user to sign into some other service.  And lots of people choose not to use Facebook or Twitter.  If you do, there are plenty of other plugins available.  There are also other existing plugins that provide similar functionality but require you to maintain an account on their server(s) to access statistics.  My aim was to provide a simple, self-contained, and locally-hosted tool where your stats stay with you (in the same way that the excellent [Matomo](https://matomo.org) does for analytics).  All while being independent from and unaffected by the whims of outside organizations that may change things without your knowledge or permission.
 
 = How do I reset like or share counts? =
 
 Go to the View Statistics page (Local Like And Share >> View Statistics), select the "All-time" tab, and press either the "Reset all like counts" or "Reset all share counts" button.  This will reset ALL of your likes or shares (depending on which button you press).  You will be presented with an "Undo" link immediately after having pressed a delete button.  If you pressed a delete button by accident, or change your mind about deleting your counts, you must click the undo link IMMEDIATELY; your action CANNOT be reversed later.
+
+= How do I use the shortcodes? =
+
+1. Go to Settings >> Local Like And Share and make sure the settings in the Common Settings, Like Settings, and Share Settings sections are populated to your liking   
+<br /><br />  
+
+    **Note**: "Button(s) position on post", "Show on post index pages", and "Show on individual post" are not relevant to the shortcodes.   
+<br /><br />  
+
+2. Add `[llas_like]` or `[llas_share]` to a post or page   
+<br /><br />  
+
+3. If you use either shortcode more than once in a post or on a page, you MUST specify a unique value for the `id` attribute
+
+    Here is an example, passing the id attribute:    
+    
+    Somewhere in the middle of a post, we drop a like button.
+    <pre>[llas_like id="1"]</pre>
+    It is fine to reuse the same id for a share button.
+    <pre>[llas_share id="1"]</pre>
+    But we need to make the like button ids unique and here is a second one.
+    <pre>[llas_like id="2"]</pre>
+    And the second share button id must also be unique (among share buttons).
+    <pre>[llas_share id="2"]</pre>
+    That's all there is to it!
 
 == Screenshots ==
 

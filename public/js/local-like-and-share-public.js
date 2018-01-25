@@ -15,12 +15,17 @@
 	 				  
                 // Hide old Tipsy tooltip
                 $('.tipsy:last').remove();
+               
+                // Handle (potentially) multiple like buttons, per post/page
+                $("[id^=id_llas_spn_like_button_"+data.post_id+"]").each(function(index) {
+
+                	// Deactivate button
+                	$(this).removeClass("llas-like-button-active").addClass("llas-like-button-inactive");
                 
-                // Deactivate button
-                jQuery("#id_divLikeButton_" + data.button_num).removeClass("llas-like-button-active").addClass("llas-like-button-inactive");
- 
-                // Render deactivated button, new tooltip message, and updated like count
- 				jQuery("#id_divLikeButton_" + data.button_num).html(data.message); 	 			
+                	// Render deactivated button, new tooltip message, and updated like count, for each button
+                	$(this).html(data.message); 	 			
+                });
+                	
                 $('a[rel="tipsy"]').tipsy({fade: true, opacity: 1});
  	 		});
 	 	});

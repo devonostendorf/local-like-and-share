@@ -302,7 +302,7 @@ class Local_Like_And_Share_Public {
 		global $post;
 		
 		// Only show buttons on published posts
-		if ( ( 'post' != $post->post_type ) || ( 'publish' != $post->post_status ) ) {
+		if ( ( 'post' != $post->post_type ) || ( 'publish' != $post->post_status ) || ( is_search() ) ) {
 			
 			return $content;
 		}

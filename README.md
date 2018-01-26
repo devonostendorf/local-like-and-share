@@ -5,7 +5,7 @@
 **Requires at least:** 4.3  
 **Tested up to:** 4.9  
 **Requires PHP:** 5.6  
-**Stable tag:** 1.1.0-2 BETA  
+**Stable tag:** 1.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
   
@@ -146,12 +146,20 @@ Go to the View Statistics page (Local Like And Share >> View Statistics), select
 1. Activating the plugin
 2. Overriding the default settings with your own custom values
 3. Adding the widget to a sidebar and overriding the defaults with your own custom values
-4. User likes a post
-5. User shares a post
-6. Widget displays likes and shares
-7. View statistics
+4. Using the shortcode to render the like and share buttons within the body of a post
+5. User likes a post
+6. User shares a post
+7. Widget displays likes and shares
+8. View statistics
 
 ## Changelog ##
+
+### 1.1.0 ###
+Release Date: January 25, 2018
+
+* NEW: Added shortcode to generate like and share buttons
+* CHANGED: Replaced gear dashicon w/ heart dashicon for Local Like And Share top level menu
+* FIXED: Prevented buttons from displaying on search results pages
 
 ### 1.0.6 ###
 Release Date: November 3, 2016
@@ -196,6 +204,9 @@ Release Date: September 18, 2015
 * Initial release
 
 ## Upgrade Notice ##
+
+### 1.1.0 ###
+Added shortcode to generate like and share buttons.  Replaced gear dashicon w/ heart dashicon for Local Like And Share top level menu.  Prevented buttons from displaying on search results pages.
 
 ### 1.0.6 ###
 Fixed postmeta table ORDER BY clause to sort like and share counts as integers.
